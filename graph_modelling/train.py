@@ -26,10 +26,13 @@ def train_one_epoch(model, loader, optimizer, device, rank, global_step, log_int
         valid_mask = batch["valid_mask"].to(device)
         node_mask = batch["node_mask"].to(device)
 
-        x, recon = model(beats, rr)
 
-        effective_mask = node_mask & valid_mask
-        loss = masked_loss(x, recon, effective_mask)
+        x, recon = model(beats, rr, node_mask, valid_mask)
+
+        loss = masked_loss(recon, x, node_mask, valid_mask)
+
+        # effective_mask = node_mask & valid_mask
+        # loss = masked_loss(x, recon, effective_mask)
 
         optimizer.zero_grad()
         loss.backward()
@@ -69,10 +72,10 @@ def validate_one_epoch(model, loader, device):
         valid_mask = batch["valid_mask"].to(device)
         node_mask = batch["node_mask"].to(device)
 
-        x, recon = model(beats, rr)
+        x, recon = model(beats, rr, node_mask, valid_mask)
 
-        effective_mask = node_mask & valid_mask
-        loss = masked_loss(x, recon, effective_mask)
+        # effective_mask = node_mask & valid_mask
+        loss = masked_loss(recon, x, node_mask, valid_mask)
 
         total_loss += loss
         count += 1

@@ -9,3 +9,11 @@ eval_results
 graph_modelling/__pycache__
 graph_modelling/experiments
 graph_modelling/wandb
+graph_modelling/slurm_outputs
+ibi_graph_model/slurm_output
+ibi_graph_model/wandb
+hybrid_graph_token_generation/__pycache__
+hybrid_graph_token_generation/logs
+hybrid_graph_token_generation/slurm_outputs
+hybrid_graph_token_generation/outputs 
+hybrid_graph_token_generation/wandb

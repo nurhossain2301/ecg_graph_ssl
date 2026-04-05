@@ -17,6 +17,7 @@ class Config:
     beat_embed_dim: int = 128
     graph_dim: int = 128
     gnn_layers: int = 3
+    d_model = 128
 
     knn_k: int = 6
     node_mask_ratio: float = 0.3
@@ -31,12 +32,16 @@ class Config:
     num_workers: int = 4
     grad_clip: float = 1.0
 
-    run_name: str = "graph_bcp_v1.0"
+    run_name: str = "graph_bcp_v2.0"
     seed: int = 42
 
     test_csv: str = "/work/hdd/bebr/Projects/ecg_foundational_model/ECG_val_files.csv"
     train_csv: str = "/work/hdd/bebr/Projects/ecg_foundational_model/ECG_train_files.csv"
     output_dir: str = "/work/nvme/bebr/mkhan14/ecg_foundation_model/graph_modelling/experiments"
+
+    @property
+    def beat_len(self):
+        return int((self.pre_r_ms + self.post_r_ms) * self.sampling_rate / 1000)
 
 
     # device: str = "cuda" if torch.cuda.is_available() else "cpu"
