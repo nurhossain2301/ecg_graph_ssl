@@ -1,0 +1,76 @@
+Device: cuda
+Indexing dataset...
+Total windows: 12348
+Label mapping: {'active': 0, 'crying': 1, 'quiet': 2, 'sleep': 3}
+Indexing dataset...
+Total windows: 4329
+Label mapping: {'active': 0, 'crying': 1, 'quiet': 2, 'sleep': 3}
+[001/50] train loss=1.0527 acc=0.5994 f1=0.3225 | val loss=1.2301 acc=0.4255 f1=0.2392
+  ✅ Saved best checkpoint to /work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/brp_sft_experiments/sft_out/best.pt (val macro-F1=0.2392)
+[002/50] train loss=0.9573 acc=0.6592 f1=0.3551 | val loss=1.2189 acc=0.4366 f1=0.2453
+  ✅ Saved best checkpoint to /work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/brp_sft_experiments/sft_out/best.pt (val macro-F1=0.2453)
+[003/50] train loss=0.9028 acc=0.6823 f1=0.3677 | val loss=1.1306 acc=0.5151 f1=0.2871
+  ✅ Saved best checkpoint to /work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/brp_sft_experiments/sft_out/best.pt (val macro-F1=0.2871)
+[004/50] train loss=0.8534 acc=0.7079 f1=0.3816 | val loss=1.0890 acc=0.5782 f1=0.3195
+  ✅ Saved best checkpoint to /work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/brp_sft_experiments/sft_out/best.pt (val macro-F1=0.3195)
+[005/50] train loss=0.8154 acc=0.7241 f1=0.3905 | val loss=1.0473 acc=0.6369 f1=0.3469
+  ✅ Saved best checkpoint to /work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/brp_sft_experiments/sft_out/best.pt (val macro-F1=0.3469)
+[006/50] train loss=0.7828 acc=0.7336 f1=0.3957 | val loss=1.0419 acc=0.6378 f1=0.3435
+[007/50] train loss=0.7628 acc=0.7381 f1=0.3982 | val loss=1.0474 acc=0.6311 f1=0.3361
+[008/50] train loss=0.7459 acc=0.7438 f1=0.4013 | val loss=1.0568 acc=0.6101 f1=0.3135
+[009/50] train loss=0.7317 acc=0.7447 f1=0.4019 | val loss=1.0368 acc=0.6329 f1=0.3399
+[010/50] train loss=0.7224 acc=0.7464 f1=0.4028 | val loss=1.0994 acc=0.5793 f1=0.2755
+[011/50] train loss=0.7131 acc=0.7489 f1=0.4042 | val loss=1.0943 acc=0.5830 f1=0.2804
+[012/50] train loss=0.7066 acc=0.7518 f1=0.4058 | val loss=1.1063 acc=0.5814 f1=0.2790
+[013/50] train loss=0.7001 acc=0.7536 f1=0.4069 | val loss=1.0980 acc=0.5934 f1=0.2937
+[014/50] train loss=0.6919 acc=0.7547 f1=0.4075 | val loss=1.0882 acc=0.5990 f1=0.3010
+[015/50] train loss=0.6867 acc=0.7559 f1=0.4082 | val loss=1.0786 acc=0.6073 f1=0.3118
+[016/50] train loss=0.6820 acc=0.7570 f1=0.4088 | val loss=1.1015 acc=0.5921 f1=0.2946
+[017/50] train loss=0.6772 acc=0.7580 f1=0.4094 | val loss=1.0950 acc=0.5992 f1=0.3018
+[018/50] train loss=0.6768 acc=0.7593 f1=0.4101 | val loss=1.0651 acc=0.6216 f1=0.3281
+[019/50] train loss=0.6697 acc=0.7600 f1=0.4105 | val loss=1.1126 acc=0.6008 f1=0.3022
+[020/50] train loss=0.6659 acc=0.7609 f1=0.4110 | val loss=1.1772 acc=0.5766 f1=0.2697
+[021/50] train loss=0.6609 acc=0.7617 f1=0.4115 | val loss=1.0907 acc=0.6110 f1=0.3156
+[022/50] train loss=0.6582 acc=0.7623 f1=0.4118 | val loss=1.0887 acc=0.6133 f1=0.3172
+[023/50] train loss=0.6548 acc=0.7630 f1=0.4123 | val loss=1.0725 acc=0.6272 f1=0.3326
+[024/50] train loss=0.6521 acc=0.7642 f1=0.4128 | val loss=1.0775 acc=0.6223 f1=0.3274
+[025/50] train loss=0.6489 acc=0.7672 f1=0.4145 | val loss=1.0653 acc=0.6332 f1=0.3385
+[026/50] train loss=0.6462 acc=0.7671 f1=0.4144 | val loss=1.1411 acc=0.6004 f1=0.3000
+[027/50] train loss=0.6437 acc=0.7673 f1=0.4146 | val loss=1.1543 acc=0.6078 f1=0.3094
+[028/50] train loss=0.6412 acc=0.7690 f1=0.4156 | val loss=1.1271 acc=0.6140 f1=0.3165
+[029/50] train loss=0.6389 acc=0.7696 f1=0.4163 | val loss=1.1277 acc=0.6200 f1=0.3250
+[030/50] train loss=0.6353 acc=0.7701 f1=0.4177 | val loss=1.1236 acc=0.6198 f1=0.3253
+[031/50] train loss=0.6344 acc=0.7720 f1=0.4193 | val loss=1.1557 acc=0.6149 f1=0.3274
+[032/50] train loss=0.6311 acc=0.7704 f1=0.4189 | val loss=1.1856 acc=0.6041 f1=0.3139
+[033/50] train loss=0.6283 acc=0.7707 f1=0.4205 | val loss=1.1619 acc=0.6085 f1=0.3271
+[034/50] train loss=0.6263 acc=0.7738 f1=0.4222 | val loss=1.1429 acc=0.6304 f1=0.3810
+  ✅ Saved best checkpoint to /work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/brp_sft_experiments/sft_out/best.pt (val macro-F1=0.3810)
+[035/50] train loss=0.6243 acc=0.7754 f1=0.4258 | val loss=1.1648 acc=0.6306 f1=0.4082
+  ✅ Saved best checkpoint to /work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/brp_sft_experiments/sft_out/best.pt (val macro-F1=0.4082)
+[036/50] train loss=0.6208 acc=0.7741 f1=0.4246 | val loss=1.1273 acc=0.6281 f1=0.3721
+[037/50] train loss=0.6182 acc=0.7761 f1=0.4292 | val loss=1.1552 acc=0.6353 f1=0.4295
+  ✅ Saved best checkpoint to /work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/brp_sft_experiments/sft_out/best.pt (val macro-F1=0.4295)
+[038/50] train loss=0.6177 acc=0.7753 f1=0.4296 | val loss=1.1616 acc=0.6346 f1=0.4429
+  ✅ Saved best checkpoint to /work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/brp_sft_experiments/sft_out/best.pt (val macro-F1=0.4429)
+[039/50] train loss=0.6176 acc=0.7758 f1=0.4352 | val loss=1.2291 acc=0.6082 f1=0.4222
+[040/50] train loss=0.6152 acc=0.7766 f1=0.4371 | val loss=1.2377 acc=0.5706 f1=0.4019
+[041/50] train loss=0.6149 acc=0.7766 f1=0.4425 | val loss=1.1480 acc=0.6401 f1=0.4532
+  ✅ Saved best checkpoint to /work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/brp_sft_experiments/sft_out/best.pt (val macro-F1=0.4532)
+[042/50] train loss=0.6101 acc=0.7793 f1=0.4386 | val loss=1.2222 acc=0.5886 f1=0.4172
+[043/50] train loss=0.6080 acc=0.7794 f1=0.4418 | val loss=1.2145 acc=0.6124 f1=0.4214
+[044/50] train loss=0.6064 acc=0.7802 f1=0.4477 | val loss=1.2511 acc=0.5828 f1=0.4075
+[045/50] train loss=0.6059 acc=0.7797 f1=0.4508 | val loss=1.2437 acc=0.5708 f1=0.4053
+[046/50] train loss=0.6033 acc=0.7819 f1=0.4567 | val loss=1.2034 acc=0.5757 f1=0.4123
+[047/50] train loss=0.6031 acc=0.7813 f1=0.4550 | val loss=1.2526 acc=0.5766 f1=0.4031
+[048/50] train loss=0.6017 acc=0.7841 f1=0.4636 | val loss=1.2638 acc=0.5532 f1=0.3933
+[049/50] train loss=0.6023 acc=0.7827 f1=0.4628 | val loss=1.2256 acc=0.5604 f1=0.3990
+[050/50] train loss=0.5975 acc=0.7822 f1=0.4618 | val loss=1.1966 acc=0.5858 f1=0.4184
+
+===== TEST RESULTS =====
+test loss: 1.1480
+test acc : 0.6401
+test f1  : 0.4532
+test kappa: 0.3592
+
+Done. Outputs in: /work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/brp_sft_experiments/sft_out
+========== DONE ==========

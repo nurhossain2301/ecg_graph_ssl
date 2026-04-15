@@ -1,0 +1,11 @@
+Device: cuda
+Indexing dataset...
+Total windows: 12348
+Label mapping: {'active': 0, 'crying': 1, 'quiet': 2, 'sleep': 3}
+Indexing dataset...
+Total windows: 4329
+Label mapping: {'active': 0, 'crying': 1, 'quiet': 2, 'sleep': 3}
+[001/50] train loss=1.0527 acc=0.5994 f1=0.3225 | val loss=1.2301 acc=0.4255 f1=0.2392
+  ✅ Saved best checkpoint to /work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/brp_sft_experiments/sft_out/best.pt (val macro-F1=0.2392)
+[002/50] train loss=0.9573 acc=0.6592 f1=0.3551 | val loss=1.2190 acc=0.4366 f1=0.2453
+  ✅ Saved best checkpoint to /work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/brp_sft_experiments/sft_out/best.pt (val macro-F1=0.2453)

@@ -1,0 +1,12 @@
+Indexing dataset...
+Total windows: 4329
+Label mapping: {'active': 0, 'crying': 1, 'quiet': 2, 'sleep': 3}
+
+===== TEST RESULTS =====
+Loss  : 1.1455
+Acc   : 0.6417
+F1    : 0.4543
+Kappa : 0.3575
+
+Saved results to: eval_results
+========== DONE ==========

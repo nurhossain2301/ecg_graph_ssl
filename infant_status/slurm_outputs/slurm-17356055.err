@@ -1,0 +1,868 @@
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from WANDB_API_KEY.
+wandb: Currently logged in as: nurhossain2301 (nurhossain2301-worcester-polytechnic-institute) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: Tracking run with wandb version 0.25.0
+wandb: Run data is saved locally in /work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/wandb/run-20260406_195832-xnibh4au
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run sft_brp-status_v1.0_window_sec_10
+wandb: ⭐️ View project at https://wandb.ai/nurhossain2301-worcester-polytechnic-institute/ecg-hubert-brp-sft
+wandb: 🚀 View run at https://wandb.ai/nurhossain2301-worcester-polytechnic-institute/ecg-hubert-brp-sft/runs/xnibh4au
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:73: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:73: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/venv/lib/python3.11/site-packages/torch/nn/modules/transformer.py:392: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True
+  warnings.warn(
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+wandb: updating run metadata; uploading artifact run-xnibh4au-testconfusion_matrix_table-Hz_3SQ
+wandb: uploading artifact run-xnibh4au-testconfusion_matrix_table-Hz_3SQ
+wandb: uploading media/table/test/confusion_matrix_table_51_aaba755f220fb3ab4fd1.table.json; uploading output.log; uploading wandb-summary.json; uploading config.yaml
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▁▁▁▂▂▂▂▂▂▃▃▃▃▃▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▆▇▇▇▇▇███
+wandb:  test/accuracy ▁
+wandb:     test/kappa ▁
+wandb:      test/loss ▁
+wandb:  test/macro_f1 ▁
+wandb: train/accuracy ▁▃▄▅▆▆▆▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇████████████████
+wandb:    train/kappa ▁▃▄▅▆▆▆▆▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇██████████████
+wandb:     train/loss █▇▄▄▄▃▃▃▃▃▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb: train/macro_f1 ▁▃▃▄▄▅▅▅▅▅▅▅▅▅▅▅▆▆▆▆▆▆▆▆▆▆▆▆▆▆▇▆▇▇▇▇████
+wandb:   val/accuracy ▁▁▄▆██▇█▆▆▆▇▇▆▇▆▇▇▇▇▇▇▇▇▇▇▇████▇█▆▇▆▆▆▅▆
+wandb:             +3 ...
+wandb: 
+wandb: Run summary:
+wandb: best_val_macro_f1 0.45428
+wandb:             epoch 50
+wandb:     test/accuracy 0.64172
+wandb:        test/kappa 0.35752
+wandb:         test/loss 1.1455
+wandb:     test/macro_f1 0.45428
+wandb:    train/accuracy 0.78199
+wandb:       train/kappa 0.6203
+wandb:        train/loss 0.59684
+wandb:    train/macro_f1 0.46021
+wandb:                +4 ...
+wandb: 
+wandb: 🚀 View run sft_brp-status_v1.0_window_sec_10 at: https://wandb.ai/nurhossain2301-worcester-polytechnic-institute/ecg-hubert-brp-sft/runs/xnibh4au
+wandb: ⭐️ View project at: https://wandb.ai/nurhossain2301-worcester-polytechnic-institute/ecg-hubert-brp-sft
+wandb: Synced 5 W&B file(s), 1 media file(s), 2 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260406_195832-xnibh4au/logs
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:73: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/venv/lib/python3.11/site-packages/torch/nn/modules/transformer.py:392: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True
+  warnings.warn(
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)

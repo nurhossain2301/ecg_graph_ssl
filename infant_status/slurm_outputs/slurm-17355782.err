@@ -1,0 +1,12 @@
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:73: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/venv/lib/python3.11/site-packages/torch/nn/modules/transformer.py:392: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True
+  warnings.warn(
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)

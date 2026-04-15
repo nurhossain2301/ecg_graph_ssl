@@ -1,0 +1,55 @@
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from WANDB_API_KEY.
+wandb: Currently logged in as: nurhossain2301 (nurhossain2301-worcester-polytechnic-institute) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: Tracking run with wandb version 0.25.0
+wandb: Run data is saved locally in /work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/wandb/run-20260406_192533-hrjd2tzc
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run sft_brp-status_v1.0_window_sec_10
+wandb: ⭐️ View project at https://wandb.ai/nurhossain2301-worcester-polytechnic-institute/ecg-hubert-brp-sft
+wandb: 🚀 View run at https://wandb.ai/nurhossain2301-worcester-polytechnic-institute/ecg-hubert-brp-sft/runs/hrjd2tzc
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:73: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:73: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/venv/lib/python3.11/site-packages/torch/nn/modules/transformer.py:392: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True
+  warnings.warn(
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+/work/nvme/bebr/mkhan14/ecg_foundation_model/infant_status/BRP_dataset.py:122: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  sr, waveform = wavfile.read(ecg_path)
+[2026-04-06T19:29:57.595] error: *** JOB 17343605 ON gpuc03 CANCELLED AT 2026-04-06T19:29:57 DUE to SIGNAL Terminated ***
