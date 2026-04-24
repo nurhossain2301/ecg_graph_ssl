@@ -33,7 +33,7 @@ export WANDB_API_KEY="83325179ad3537a8c7a1b3a0c8daa4ea71866fae"
 # SET PATHS
 # =============================================
 PROJECT_DIR=$PWD
-EXPERIMENT_DIR="$PROJECT_DIR/brp_sft_experiments_caregiver"
+EXPERIMENT_DIR="$PROJECT_DIR/brp_sft_experiments_sleep_v2"
 ENCODER_CKPT="/work/hdd/bebr/Projects/ecg_foundational_model/experiments/stage1_model/best_model.pt"
 TRAIN_CSV="../../BRP_train.csv"
 TEST_CSV="../../BRP_test.csv"
@@ -61,7 +61,7 @@ python main.py \
 python eval.py \
     --ckpt "$EXPERIMENT_DIR/sft_out/best.pt" \
     --test_csv $TEST_CSV \
-    --output_dir eval_results_caregiver \
+    --output_dir eval_results_sleep_v2 \
     --num_classes 2
 
 

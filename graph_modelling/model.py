@@ -1,16 +1,10 @@
+import copy
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from graph_utils import build_graph
 
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
 
-
-# -------------------------------------------------------
-# Beat Encoder
-# -------------------------------------------------------
 class BeatEncoder(nn.Module):
     def __init__(self, in_len, d_model, rr_dim=2):
         super().__init__()
@@ -22,152 +16,232 @@ class BeatEncoder(nn.Module):
             nn.ReLU(),
             nn.AdaptiveAvgPool1d(1),
         )
-        self.fc = nn.Linear(64 + rr_dim, d_model)  # +1 for RR
+        self.fc = nn.Linear(64 + rr_dim, d_model)
 
     def forward(self, beats, rr):
-        # beats: [B, N, L]
         B, N, L = beats.shape
-
-        x = beats.view(B * N, 1, L)
-        x = self.net(x).squeeze(-1)  # [B*N, 64]
-
-        rr = rr.view(B * N, self.rr_dim)
-
+        x = beats.reshape(B * N, 1, L)
+        x = self.net(x).squeeze(-1)
+        rr = rr.reshape(B * N, self.rr_dim)
         x = torch.cat([x, rr], dim=-1)
-
         x = self.fc(x)
-        x = x.view(B, N, -1)
-
-        return x
+        return x.reshape(B, N, -1)
 
 
-# -------------------------------------------------------
-# Temporal Encoder (Transformer)
-# -------------------------------------------------------
 class TemporalEncoder(nn.Module):
-    def __init__(self, d_model, nhead=4, num_layers=2):
+    def __init__(self, d_model, nhead=4, num_layers=2, dropout=0.1):
         super().__init__()
-        encoder_layer = nn.TransformerEncoderLayer(
+        layer = nn.TransformerEncoderLayer(
             d_model=d_model,
             nhead=nhead,
-            batch_first=True
+            dropout=dropout,
+            batch_first=True,
+            norm_first=True,
         )
-        self.encoder = nn.TransformerEncoder(encoder_layer, num_layers)
+        self.encoder = nn.TransformerEncoder(layer, num_layers)
 
     def forward(self, x):
         return self.encoder(x)
 
 
-# -------------------------------------------------------
-# Simple GNN (message passing)
-# -------------------------------------------------------
-class SimpleGNNLayer(nn.Module):
+class ResidualGATLayer(nn.Module):
+    def __init__(self, d_model, dropout=0.1):
+        super().__init__()
+        self.q = nn.Linear(d_model, d_model)
+        self.k = nn.Linear(d_model, d_model)
+        self.v = nn.Linear(d_model, d_model)
+        self.out = nn.Linear(d_model, d_model)
+        self.norm = nn.LayerNorm(d_model)
+        self.dropout = nn.Dropout(dropout)
+        self.scale = d_model ** -0.5
+
+    def forward(self, x, valid_mask):
+        # x: [B, N, D]
+        q = self.q(x)
+        k = self.k(x)
+        v = self.v(x)
+
+        attn = torch.matmul(q, k.transpose(1, 2)) * self.scale  # [B,N,N]
+
+        # mask out padded nodes both as query support and key support
+        key_mask = ~valid_mask.unsqueeze(1)   # [B,1,N]
+        attn = attn.masked_fill(key_mask, -1e9)
+
+        w = torch.softmax(attn, dim=-1)
+        w = self.dropout(w)
+
+        out = torch.matmul(w, v)
+        out = self.out(out)
+
+        x = self.norm(x + out)
+        x = x * valid_mask.unsqueeze(-1)
+        return x
+
+class AttentionPool(nn.Module):
     def __init__(self, d_model):
         super().__init__()
-        self.lin_self = nn.Linear(d_model, d_model)
-        self.lin_neigh = nn.Linear(d_model, d_model)
+        self.attn = nn.Sequential(
+            nn.Linear(d_model, d_model),
+            nn.Tanh(),
+            nn.Linear(d_model, 1),
+        )
 
-    def forward(self, x, A):
-        # x: [B, N, D], A: [B, N, N]
-        deg = A.sum(-1, keepdim=True) + 1e-6
-        agg = torch.bmm(A, x) / deg
-        return self.lin_self(x) + self.lin_neigh(agg)
+    def forward(self, x, valid_mask):
+        """
+        x: [B, N, D]
+        valid_mask: [B, N] bool
+        """
+        scores = self.attn(x)  # [B, N, 1]
 
+        # mask padded beats
+        scores = scores.masked_fill(~valid_mask.unsqueeze(-1), -1e9)
 
-# -------------------------------------------------------
-# Graph Builder
-# -------------------------------------------------------
-def build_graph(x, k=5):
-    # x: [B, N, D]
-    B, N, D = x.shape
-
-    sim = torch.matmul(x, x.transpose(1, 2))  # cosine-ish
-    _, idx = torch.topk(sim, k=k, dim=-1)
-
-    A = torch.zeros(B, N, N, device=x.device)
-
-    for b in range(B):
-        for i in range(N):
-            A[b, i, idx[b, i]] = 1.0
-
-    # temporal edges
-    for i in range(N - 1):
-        A[:, i, i + 1] = 1
-        A[:, i + 1, i] = 1
-
-    return A
+        weights = torch.softmax(scores, dim=1)  # [B, N, 1]
+        pooled = (x * weights).sum(dim=1)       # [B, D]
+        return pooled, weights
 
 
-# -------------------------------------------------------
-# FULL MODEL (CORRECT MASKED SSL)
-# -------------------------------------------------------
-class ECGModel(nn.Module):
+class ECGEncoder(nn.Module):
     def __init__(self, cfg):
         super().__init__()
+        self.norm_enc = nn.LayerNorm(cfg.d_model)
+        self.norm_temp = nn.LayerNorm(cfg.d_model)
+        self.norm_out = nn.LayerNorm(cfg.d_model)
+        self.beat = BeatEncoder(cfg.beat_len, cfg.d_model, rr_dim=2)
+        self.temporal = TemporalEncoder(
+            cfg.d_model,
+            nhead=4,
+            num_layers=2,
+            dropout=0.1,
+        )
+        self.gnn = nn.ModuleList([
+            ResidualGATLayer(cfg.d_model, dropout=0.1)
+            for _ in range(cfg.gnn_layers)
+        ])
 
-        # self.encoder = BeatEncoder(cfg.beat_len, cfg.d_model)
-        self.encoder = BeatEncoder(cfg.beat_len, cfg.d_model, rr_dim=2)
-        self.temporal = TemporalEncoder(cfg.d_model)
-        self.gnn = nn.ModuleList(
-            [SimpleGNNLayer(cfg.d_model) for _ in range(cfg.gnn_layers)]
+    def forward(self, beats, rr, valid_mask):
+        x = self.beat(beats, rr)
+        x = self.norm_enc(x)
+        x = x * valid_mask.unsqueeze(-1)
+        x = self.temporal(x)
+        x = self.norm_temp(x)
+        x = x * valid_mask.unsqueeze(-1)
+
+        for layer in self.gnn:
+            x = layer(x, valid_mask)
+        x = self.norm_out(x)
+        return x
+
+
+class ECGBYOLModel(nn.Module):
+    def __init__(self, cfg):
+        super().__init__()
+        self.online_encoder = ECGEncoder(cfg)
+        self.target_encoder = copy.deepcopy(self.online_encoder)
+        self.pool = AttentionPool(cfg.d_model)
+
+        for p in self.target_encoder.parameters():
+            p.requires_grad = False
+
+        self.online_projector = nn.Sequential(
+            nn.Linear(cfg.d_model, cfg.d_model),
+            nn.BatchNorm1d(cfg.d_model),
+            nn.ReLU(),
+            nn.Linear(cfg.d_model, 128),
+        )
+
+        self.target_projector = copy.deepcopy(self.online_projector)
+        for p in self.target_projector.parameters():
+            p.requires_grad = False
+
+        self.predictor = nn.Sequential(
+            nn.Linear(128, 128),
+            nn.BatchNorm1d(128),
+            nn.ReLU(),
+            nn.Linear(128, 128),
         )
 
         self.decoder = nn.Linear(cfg.d_model, cfg.d_model)
-
-        # 🔥 learned mask token (critical)
         self.mask_token = nn.Parameter(torch.zeros(1, 1, cfg.d_model))
+        self.mask_token = nn.init.normal_(self.mask_token, std=0.02)
 
-    def forward(self, beats, rr, node_mask, valid_mask):
-        """
-        node_mask: True = MASKED (predict)
-        valid_mask: True = real node
-        """
+    @torch.no_grad()
+    def update_target(self, momentum=0.99):
+        for p_o, p_t in zip(self.online_encoder.parameters(), self.target_encoder.parameters()):
+            p_t.data.mul_(momentum).add_(p_o.data, alpha=1.0 - momentum)
 
-        # ---------------------------------------------------
-        # 1. Encode beats
-        # ---------------------------------------------------
-        e = self.encoder(beats, rr)  # [B, N, D]
+        for p_o, p_t in zip(self.online_projector.parameters(), self.target_projector.parameters()):
+            p_t.data.mul_(momentum).add_(p_o.data, alpha=1.0 - momentum)
 
-        # ---------------------------------------------------
-        # 2. Compute CLEAN TARGET (no masking)
-        # ---------------------------------------------------
+    def masked_forward(self, beats, rr, node_mask, valid_mask):
+        # e = self.online_encoder.beat(beats, rr)
+        enc = self.online_encoder
+
+        # Step 1: clean beat embeddings (normalized, masked)
+        e = enc.beat(beats, rr)
+        e = enc.norm_enc(e)
+        e = e * valid_mask.unsqueeze(-1)
+
+        # with torch.no_grad():
+        #     target = self.online_encoder.temporal(e.clone())
+        # target = target.detach()
+
+        # Step 2: target from temporal only (consistent space)
         with torch.no_grad():
-            target = self.temporal(e.clone())
-        target = target.detach()
+            target = enc.temporal(e)
+            target = enc.norm_temp(target)
+            target = target * valid_mask.unsqueeze(-1)
+            target = target.detach()
 
-        # ---------------------------------------------------
-        # 3. Apply MASK (VERY IMPORTANT)
-        # ---------------------------------------------------
-        e_masked = e.clone()
-
-        mask_token = self.mask_token.expand(e.size(0), e.size(1), -1)
-
-        # Only replace VALID nodes that are masked
-        e_masked = torch.where(
-            node_mask.unsqueeze(-1),
-            mask_token,
-            e_masked
-        )
-
-        # Zero-out padded nodes
+        # Step 3: mask input embeddings BEFORE temporal
+        mask_tok = self.mask_token.expand(e.size(0), e.size(1), -1)
+        e_masked = torch.where(node_mask.unsqueeze(-1), mask_tok, e)
         e_masked = e_masked * valid_mask.unsqueeze(-1)
+        # e_masked = e.clone()
+        # mask_tok = self.mask_token.expand(e.size(0), e.size(1), -1)
+        # e_masked = torch.where(node_mask.unsqueeze(-1), mask_tok, e_masked)
+        # e_masked = e_masked * valid_mask.unsqueeze(-1)
+        # Step 4: reconstruct through same path as target
+        x = enc.temporal(e_masked)
+        x = enc.norm_temp(x)
+        x = x * valid_mask.unsqueeze(-1)
 
-        # ---------------------------------------------------
-        # 4. Temporal encoding on masked input
-        # ---------------------------------------------------
-        x = self.temporal(e_masked)
+        # x = self.online_encoder.temporal(e_masked)
+        # x = x * valid_mask.unsqueeze(-1)
 
-        # ---------------------------------------------------
-        # 5. Graph construction + GNN
-        # ---------------------------------------------------
-        A = build_graph(x)
+        # Step 5: GNN refinement (optional, separate from target space)
+        for layer in enc.gnn:
+            x = layer(x, valid_mask)
 
-        for layer in self.gnn:
-            x = layer(x, A)
-
-        # ---------------------------------------------------
-        # 6. Reconstruction
-        # ---------------------------------------------------
         recon = self.decoder(x)
+        return target, recon, x
 
-        return target, recon
+    def _pool(self, x, valid_mask, return_attn=False):
+        pooled, weights = self.pool(x, valid_mask)
+        if return_attn:
+            return pooled, weights
+        return pooled
+
+    def byol_forward(self, beats1, rr1, valid1, beats2, rr2, valid2, return_attn=False):
+        z1 = self.online_encoder(beats1, rr1, valid1)
+        if return_attn:
+            z1, attn1 = self._pool(z1, valid1, return_attn=True)
+        else:
+            z1 = self._pool(z1, valid1)
+
+        z1 = self.online_projector(z1)
+        p1 = self.predictor(z1)
+
+        with torch.no_grad():
+            z2 = self.target_encoder(beats2, rr2, valid2)
+            if return_attn:
+                z2, attn2 = self._pool(z2, valid2, return_attn=True)
+            else:
+                z2 = self._pool(z2, valid2)
+
+            z2 = self.target_projector(z2)
+
+        if return_attn:
+            return p1, z2, attn1, attn2
+
+        return p1, z2

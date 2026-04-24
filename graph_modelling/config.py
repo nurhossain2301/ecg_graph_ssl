@@ -12,7 +12,7 @@ class Config:
     post_r_ms: int = 400
     min_rr_ms: int = 250
 
-    max_beats_per_segment: int = 128
+    max_beats_per_segment: int = 32
 
     beat_embed_dim: int = 128
     graph_dim: int = 128
@@ -32,7 +32,7 @@ class Config:
     num_workers: int = 4
     grad_clip: float = 1.0
 
-    run_name: str = "graph_bcp_v2.0"
+    run_name: str = "graph_bcp_byol_v1"
     seed: int = 42
 
     test_csv: str = "/work/hdd/bebr/Projects/ecg_foundational_model/ECG_val_files.csv"

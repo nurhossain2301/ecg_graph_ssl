@@ -7,23 +7,23 @@ from multiprocessing import Pool, cpu_count
 import sys
 sys.path.append("..")
 
-from littlebeats.littlebeats.ecg.ibi import detect_ibi_simple
+from littlebeats.littlebeats.ecg.ibi import detect_ibi_simple, detect_ibi_adaptive
 
 
 # -------------------------------------------------------
 # CONFIG
 # -------------------------------------------------------
-INPUT_CSV = "/work/hdd/bebr/Projects/ecg_foundational_model/ECG_train_files.csv"        # CSV with column "filename"
+INPUT_CSV = "/work/nvme/bebr/mkhan14/ecg_foundation_model/BRP_test.csv"        # CSV with column "filename"
 PARENT_DIR = "ibi_outputs"
 os.makedirs(PARENT_DIR, exist_ok=True)
-OUTPUT_DIR = os.path.join(PARENT_DIR, "train")
+OUTPUT_DIR = os.path.join(PARENT_DIR, "brp_test")
 NUM_WORKERS = max(1, cpu_count() - 2)
 
 SAMPLING_RATE = 1000
 
 # IBI thresholds (ms)
-MIN_IBI = 350
-MAX_IBI = 650
+MIN_IBI = 0.350
+MAX_IBI = 0.650
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
@@ -37,9 +37,9 @@ def process_file(file_path):
     ecg_file = file_path.replace(".wav", ".txt")
     ecg_df = pd.read_csv(ecg_file, names=["time", "ecg"])
     ecg_df.attrs['sr'] = 1000
-    
 
-    ibi_df = detect_ibi_simple(
+
+    ibi_df = detect_ibi_adaptive(
         ecg_df,
         'ecg',
         ['time'],
@@ -47,13 +47,15 @@ def process_file(file_path):
         verbose=False)
 
     ibi = ibi_df['ibi'].values
-
+    print(ibi)
+    
     # ---- Detect wrong IBIs ----
     wrong_mask = (ibi < MIN_IBI) | (ibi > MAX_IBI)
     num_wrong = int(wrong_mask.sum())
     total = len(ibi)
 
     wrong_pct = (num_wrong / total) * 100 if total > 0 else 100.0
+
 
     # ---- Save IBI ----
     out_name = os.path.basename(file_path).replace(".wav", ".npy")
@@ -92,26 +94,39 @@ def run_parallel(file_list):
 def main():
 
     df = pd.read_csv(INPUT_CSV)
-    file_list = df["filename"].tolist()
+    file_list = df["ECG_files"].tolist()
 
-    print(f"Processing {len(file_list)} ECG files with {NUM_WORKERS} workers...")
+    print(f"Processing {len(file_list)} ECG files (sequential)...")
 
-    results = run_parallel(file_list)
+    results = []
 
-    # ---- Save report ----
+    for f in tqdm(file_list):
+        res = process_file(f)
+        results.append(res)
+
+    # ---- Convert to DataFrame ----
     report_df = pd.DataFrame(results)
 
+    # ---- Save report ----
     report_path = os.path.join(OUTPUT_DIR, "ibi_quality_report.csv")
     report_df.to_csv(report_path, index=False)
 
-    # ---- Global stats ----
+    # ---- Filter valid files ----
     valid = report_df[report_df["status"] == "ok"]
 
     if len(valid) > 0:
+        avg_wrong = valid["wrong_pct"].mean()
+        median_wrong = valid["wrong_pct"].median()
+        high_error = (valid["wrong_pct"] > 20).sum()
+
         print("\n===== SUMMARY =====")
-        print(f"Avg wrong IBI %: {valid['wrong_pct'].mean():.2f}")
-        print(f"Median wrong IBI %: {valid['wrong_pct'].median():.2f}")
-        print(f"Files >20% wrong: {(valid['wrong_pct'] > 20).sum()} / {len(valid)}")
+        print(f"Total valid files: {len(valid)}")
+        print(f"Avg wrong IBI %: {avg_wrong:.2f}")
+        print(f"Median wrong IBI %: {median_wrong:.2f}")
+        print(f"Files >20% wrong: {high_error} / {len(valid)}")
+
+    else:
+        print("\nNo valid files processed.")
 
     print(f"\nSaved report → {report_path}")
     print(f"IBI files saved in → {OUTPUT_DIR}")

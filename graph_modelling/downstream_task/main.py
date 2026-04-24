@@ -12,7 +12,7 @@ from collections import Counter
 from torch.utils.data import Dataset, DataLoader
 
 
-from BRP_dataset_caregiver import BRPGraphDataset
+from BRP_dataset_sleep import BRPGraphDataset
 from classifier import GraphClassifier, load_pretrained_encoder
 from supervised_model import SupervisedECGGraph
 from train import run_one_epoch
@@ -34,11 +34,11 @@ def parse_args():
     p.add_argument("--window_sec", type=int, default=10)
     p.add_argument("--epochs", type=int, default=30)
     p.add_argument("--lr", type=float, default=1e-4)
-    p.add_argument("--weight_decay", type=float, default=1e-3)
+    p.add_argument("--weight_decay", type=float, default=1e-4)
     p.add_argument("--hidden_dim", type=int, default=256)
     p.add_argument("--num_workers", type=int, default=4)
     p.add_argument("--grad_clip", type=float, default=1.0)
-    p.add_argument("--run_name", type=str, default="sft_brp_v1.0")
+    p.add_argument("--run_name", type=str, default="sft_brp_graph_caregiver")
     p.add_argument("--num_classes", type=int, default=4)
 
     p.add_argument("--seed", type=int, default=42)
@@ -69,7 +69,7 @@ def main():
     )
 
 
-    os.makedirs(args.output_dir, exist_ok=True)
+    
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
     print(f"Device: {device}")
@@ -107,6 +107,7 @@ def main():
         return weights
 
     class_weights = compute_class_weights(train_dataset, args.num_classes).to(device)
+    class_weights_test = compute_class_weights(test_dataset, args.num_classes).to(device)
 
     # Load pretrained encoder
     # pretrained_ckpt = "/work/nvme/bebr/mkhan14/ecg_foundation_model/graph_modelling/best_model.pt"
@@ -119,7 +120,7 @@ def main():
     #     freeze_encoder=bool(args.freeze_encoder)
     # ).to(device)
 
-    model = SupervisedECGGraph(num_classes=args.num_classes).to(device)
+    model = SupervisedECGGraph(num_classes=args.num_classes, cfg=cfg).to(device)
 
     # Optimizer: if encoder frozen, optimizer sees only classifier params
     trainable_params = [p for p in model.parameters() if p.requires_grad]
@@ -165,6 +166,7 @@ def main():
                     "model": model.state_dict(),
                     "args": vars(args),
                     "val_metrics": va_metrics,
+                    "label2idx": label2idx
                 },
                 best_path,
             )

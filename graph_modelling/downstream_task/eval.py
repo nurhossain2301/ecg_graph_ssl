@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
-from BRP_dataset_caregiver import BRPGraphDataset
+from BRP_dataset_sleep import BRPGraphDataset
 from classifier import GraphClassifier, load_pretrained_encoder
 from train import run_one_epoch
 from config import Config
@@ -104,7 +104,7 @@ def main():
     #     encoder=encoder,
     #     num_classes=args.num_classes,
     # ).to(device)
-    model = SupervisedECGGraph(num_classes=args.num_classes).to(device)
+    model = SupervisedECGGraph(num_classes=args.num_classes, cfg=cfg).to(device)
     model.load_state_dict(ckpt["model"])
     model.eval()
 

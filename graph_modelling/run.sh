@@ -8,7 +8,7 @@
 #SBATCH --cpus-per-task=4   # spread out to use 1 core per numa, set to 64 if tasks is 1
 #SBATCH --gpus-per-node=1
 #SBATCH --account=bebr-delta-gpu    # <- match to a "Project" returned by the "accounts" command
-#SBATCH -t 20:00:00
+#SBATCH -t 10:00:00
 #SBATCH -e /work/nvme/bebr/mkhan14/ecg_foundation_model/graph_modelling/slurm_outputs/slurm-%j.err
 #SBATCH -o /work/nvme/bebr/mkhan14/ecg_foundation_model/graph_modelling/slurm_outputs/slurm-%j.out
 

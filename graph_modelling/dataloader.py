@@ -1,28 +1,23 @@
 from torch.utils.data import DataLoader, DistributedSampler
 import pandas as pd
-from dataset import ECGGraphDataset, GraphSSL_Collator
+from dataset import ECGGraphBYOLDataset, GraphBYOLCollator
 from config import Config
 
 
 def load_data(cfg):
-    train_files = pd.read_csv(cfg.train_csv)
-    train_files = train_files["filename"].tolist()
+    train_files = pd.read_csv(cfg.train_csv)["filename"].tolist()
+    val_files = pd.read_csv(cfg.test_csv)["filename"].tolist()
 
-    val_files = pd.read_csv(cfg.test_csv)
-    val_files = val_files["filename"].tolist()
-    
-
-    train_dataset = ECGGraphDataset(
+    train_dataset = ECGGraphBYOLDataset(
         file_list=train_files,
         sampling_rate=cfg.sampling_rate,
         window_sec=cfg.window_sec,
         dataset_size=cfg.dataset_size,
         mode="train",
-        cfg = cfg
+        cfg=cfg
     )
-    
 
-    val_dataset = ECGGraphDataset(
+    val_dataset = ECGGraphBYOLDataset(
         file_list=val_files,
         sampling_rate=cfg.sampling_rate,
         window_sec=cfg.window_sec,
@@ -34,12 +29,11 @@ def load_data(cfg):
     train_sampler = DistributedSampler(train_dataset, shuffle=True)
     val_sampler = DistributedSampler(val_dataset, shuffle=False)
 
-    collator = GraphSSL_Collator(node_mask_ratio=cfg.node_mask_ratio)
+    collator = GraphBYOLCollator(node_mask_ratio=cfg.node_mask_ratio)
 
     train_loader = DataLoader(
         train_dataset,
         batch_size=cfg.batch_size,
-        # shuffle=True,
         sampler=train_sampler,
         collate_fn=collator,
         num_workers=cfg.num_workers,
@@ -50,7 +44,6 @@ def load_data(cfg):
     val_loader = DataLoader(
         val_dataset,
         batch_size=cfg.batch_size,
-        # shuffle=False,
         sampler=val_sampler,
         collate_fn=collator,
         num_workers=cfg.num_workers,

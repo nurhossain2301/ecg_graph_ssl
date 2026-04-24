@@ -50,30 +50,78 @@ class BRPGraphDataset(Dataset):
     # Parse annotation
     # -----------------------------
     def _parse_annotation(self, ann_path, tone_offset):
-        segments = []
+
+        interaction_segments = []
+        state_segments = []
+        location_segments = []
+
         with open(ann_path, "r") as f:
             for line in f:
-                if not line.startswith("INTERACTION"):
-                    continue
-
                 parts = line.strip().split("\t")
-                start_sec = float(parts[3]) + tone_offset
-                end_sec = float(parts[5]) + tone_offset
-                label_txt = parts[-1].strip().lower()
-                if label_txt.startswith('o'):
+                if len(parts) < 8:
                     continue
 
-                # Map labels
-                if label_txt.startswith('c'):
-                    label_group = "caregiver"
-                elif label_txt.startswith('i'):
-                    label_group = "infant"
-                else:
-                    continue  # skip anything unexpected
-                if label_group is not None:
-                    segments.append((start_sec, end_sec, label_group))
+                tag = parts[0].strip()
+                start = float(parts[3]) + tone_offset
+                end = float(parts[5]) + tone_offset
+                label = parts[-1].strip().lower()
 
-        return segments
+                if tag == "INTERACTION":
+                    interaction_segments.append((start, end, label))
+                elif tag == "state":
+                    state_segments.append((start, end, label))
+                elif tag == "location":
+                    location_segments.append((start, end, label))
+
+        # ----------------------------------
+        # Helper to get overlapping label
+        # ----------------------------------
+        def get_label_at(time, segments):
+            for s, e, l in segments:
+                if s <= time < e:
+                    return l
+            return None
+
+        # ----------------------------------
+        # Build final segments
+        # ----------------------------------
+        final_segments = []
+
+        for start, end, interaction in interaction_segments:
+
+            mid_time = (start + end) / 2
+
+            state = get_label_at(mid_time, state_segments)
+            location = get_label_at(mid_time, location_segments)
+
+            # -------------------------
+            # Apply your logic
+            # -------------------------
+            label_group = None
+
+            # Infant movement (non-spatial)
+            if interaction.startswith("i-alone"):
+                if state in ["crying", "active alert"] and location == "floor":
+                    label_group = "infant-alone"
+
+            # Infant movement in space
+            elif interaction.startswith("i-move"):
+                if location=="floor":
+                    label_group = "infant-move"
+
+            # Caregiver touch (non-spatial)
+            elif interaction.startswith("c-active") or interaction.startswith("c-passive"):
+                label_group = "caregiver-touch"
+
+            # Caregiver moving infant
+            elif interaction.startswith("c-pick"):
+                label_group = "caregiver-pickup"
+
+            # Skip others (like O-TOUCH)
+            if label_group is not None:
+                final_segments.append((start, end, label_group))
+
+        return final_segments
 
     # -----------------------------
     # Build sample index
@@ -191,3 +239,32 @@ class BRPGraphDataset(Dataset):
             "valid_mask": valid_mask,
             "label": torch.tensor(label_idx, dtype=torch.long)
         }
+
+if __name__ == "__main__":
+    from config import Config
+    from collections import Counter
+    import matplotlib.pyplot as plt
+    cfg = Config()
+    TRAIN_CSV="../../BRP_train.csv"
+    TEST_CSV="../../BRP_test.csv"
+    train_dataset = BRPGraphDataset(TRAIN_CSV, window_sec=10, sample_rate=1000, cfg=cfg)
+    label2idx = train_dataset.label2idx
+    test_dataset  = BRPGraphDataset(TEST_CSV, window_sec=10, sample_rate=1000, cfg=cfg, label2idx=label2idx)
+    labels = [train_dataset[i]["label"].item() for i in range(len(train_dataset))]
+    data = Counter(labels)
+    fig, ax = plt.subplots()
+    idx2label = dict(zip(label2idx.values(), label2idx.keys()))
+    # Loop through dictionary to plot each bar separately
+    for i, (key, value) in enumerate(data.items()):
+        ax.bar(i, value, label=idx2label[key])
+
+    # Clean up the x-axis labels
+    ax.set_xticks(range(len(data)))
+    ax.set_xticklabels(data.keys())
+
+    # Add the legend
+    ax.legend(title="Categories")
+    
+    plt.savefig("Infant_vs_caregiver_train_4class.png", bbox_inches='tight')
+
+    

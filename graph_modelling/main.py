@@ -1,6 +1,8 @@
 import torch
 from torch.utils.data import DataLoader
+from torch.utils.data import DataLoader, DistributedSampler
 import torch.distributed as dist
+import pandas as pd
 import numpy as np
 import random
 import argparse
@@ -8,8 +10,8 @@ import wandb
 import os
 
 from config import Config
-from dataset import ECGGraphDataset, GraphSSL_Collator
-from model import ECGModel
+from dataset import ECGGraphBYOLDataset, GraphBYOLCollator
+from model import ECGBYOLModel
 from loss import masked_loss
 from dataloader import load_data
 from train import train_one_epoch, validate_one_epoch
@@ -69,14 +71,25 @@ def main():
     # ---------------------------------------------------
     # Model
     # ---------------------------------------------------
-    model = ECGModel(cfg).to(device)
+    model = ECGBYOLModel(cfg).to(device)
+
     model = torch.nn.parallel.DistributedDataParallel(
         model,
-        device_ids=[local_rank]
+        device_ids=[local_rank],
+        find_unused_parameters=True   # 🔥 IMPORTANT for BYOL branches
     )
 
 
-    optimizer = torch.optim.AdamW(model.parameters(), lr=cfg.lr, weight_decay=cfg.weight_decay)
+    params = list(model.module.online_encoder.parameters()) + \
+         list(model.module.online_projector.parameters()) + \
+         list(model.module.predictor.parameters()) + \
+         list(model.module.decoder.parameters())
+
+    optimizer = torch.optim.AdamW(
+        params,
+        lr=cfg.lr,
+        weight_decay=cfg.weight_decay
+    )
     # scaler = GradScaler(enabled=cfg.amp)
 
     # ---------------------------------------------------
@@ -91,7 +104,7 @@ def main():
 
         # train_loss = train_one_epoch(model, train_loader, optimizer, cfg.device)
         # val_loss = validate_one_epoch(model, val_loader, cfg.device)
-        train_loss, global_step = train_one_epoch(
+        train_stats = train_one_epoch(
             model,
             train_loader,
             optimizer,
@@ -101,7 +114,9 @@ def main():
             log_interval
         )
 
-        val_loss = validate_one_epoch(model, val_loader, device)
+        global_step = train_stats["global_step"]
+
+        val_stats = validate_one_epoch(model, val_loader, device)
 
         # ---------------------------------------------------
         # Logging
@@ -109,19 +124,28 @@ def main():
         if rank == 0:
             wandb.log({
                 "epoch": epoch + 1,
-                "train_loss_epoch": train_loss,
-                "val_loss": val_loss
+
+                "train_loss": train_stats["loss"],
+                "train_mask_loss": train_stats["mask_loss"],
+                "train_byol_loss": train_stats["byol_loss"],
+
+                "val_loss": val_stats["loss"],
+                "val_mask_loss": val_stats["mask_loss"],
+                "val_byol_loss": val_stats["byol_loss"],
             })
 
             print(
                 f"Epoch {epoch+1:03d} | "
-                f"Train Loss: {train_loss:.4f} | "
-                f"Val Loss: {val_loss:.4f}"
+                f"Train Loss: {train_stats['loss']:.4f} "
+                f"(mask {train_stats['mask_loss']:.4f}, byol {train_stats['byol_loss']:.4f}) | "
+                f"Val Loss: {val_stats['loss']:.4f} "
+                f"(mask {val_stats['mask_loss']:.4f}, byol {val_stats['byol_loss']:.4f})"
             )
 
             # Save best model
-            if val_loss < best_val:
-                best_val = val_loss
+            if val_stats["loss"] < best_val:
+                best_val = val_stats["loss"]
+
                 torch.save(model.module.state_dict(), "best_model.pt")
 
                 wandb.log({"best_val_loss": best_val})
