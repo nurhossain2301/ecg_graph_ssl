@@ -29,19 +29,6 @@ class IBIGraphDataset(Dataset):
         self.normalize = normalize
         self.label2idx = label2idx
 
-        # ---- SAME LABEL GROUPING AS BRP ----
-        # Label grouping (same as your previous)
-        self.LABEL_GROUP_MAP = {
-            "active alert": "wake",
-            "active": "wake",
-            "drowsy": "sleep",
-            "drowsy unsure": "sleep",
-            "light sleep": "sleep",
-            "deep sleep": "sleep",
-            "quiet alert": "wake",
-            "crying": "wake"
-        }
-
         self.samples = []
         self._prepare_index()
         self._build_label_mapping()
@@ -102,20 +89,20 @@ class IBIGraphDataset(Dataset):
             # Infant movement (non-spatial)
             if interaction.startswith("i-alone"):
                 if state in ["crying", "active alert"] and location == "floor":
-                    label_group = "infant-alone"
+                    label_group = "infant"
 
             # Infant movement in space
             elif interaction.startswith("i-move"):
                 if location=="floor":
-                    label_group = "infant-move"
+                    label_group = "infant"
 
             # Caregiver touch (non-spatial)
             elif interaction.startswith("c-active") or interaction.startswith("c-passive"):
-                label_group = "caregiver-touch"
+                label_group = "caregiver"
 
             # Caregiver moving infant
             elif interaction.startswith("c-pick"):
-                label_group = "caregiver-pickup"
+                label_group = "caregiver"
 
             # Skip others (like O-TOUCH)
             if label_group is not None:
@@ -143,8 +130,6 @@ class IBIGraphDataset(Dataset):
                 continue
 
             ecg_df = pd.read_csv(ecg_txt, names=["time", "ecg"])
-            total_time = ecg_df["time"].values[-1]
-
             segments = self._parse_annotation(ann_path, tone_offset)
 
             for seg_start, seg_end, label in segments:

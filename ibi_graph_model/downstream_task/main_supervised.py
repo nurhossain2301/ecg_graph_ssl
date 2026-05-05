@@ -23,7 +23,7 @@ def set_seed(seed: int):
 
 
 def compute_class_weights(dataset, num_classes):
-    labels = [dataset[i]["label"].item() for i in range(len(dataset))]
+    labels = [dataset.label2idx[label] for _, _, label in dataset.samples]
     counts = Counter(labels)
 
     print("Class counts:", counts)
@@ -95,8 +95,8 @@ def main():
         score = val_metrics["f1_macro"]
         print(
             f"Epoch {epoch + 1:03d} | "
-            f"train loss={train_metrics['loss']:.4f} acc={train_metrics['acc']:.4f} f1={train_metrics['f1_macro']:.4f} | "
-            f"val loss={val_metrics['loss']:.4f} acc={val_metrics['acc']:.4f} bal_acc={val_metrics['bal_acc']:.4f} f1={val_metrics['f1_macro']:.4f}"
+            f"train loss={train_metrics['loss']:.4f} acc={train_metrics['acc']:.4f} f1={train_metrics['f1_macro']:.4f} kappa={train_metrics['kappa']:.4f} | "
+            f"val loss={val_metrics['loss']:.4f} acc={val_metrics['acc']:.4f} bal_acc={val_metrics['bal_acc']:.4f} f1={val_metrics['f1_macro']:.4f} kappa={val_metrics['kappa']:.4f}"
         )
         if cfg.num_classes == 2:
             print(f"val auroc={val_metrics.get('auroc', float('nan')):.4f}")

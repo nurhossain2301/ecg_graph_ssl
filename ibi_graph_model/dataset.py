@@ -42,12 +42,14 @@ class ECGGraphDataset(Dataset):
             return self.dataset_size
         return len(self.val_indices)
 
-    def _load_features_from_file(self, file_path, train=True):
+    def _load_features_from_file(self, file_path, train=True, val_window_idx=0):
         ibi = load_ibi_file(file_path)
         ibi = random_window_ibi(
             ibi,
             window_beats=self.cfg.max_len_beats,
-            train=train
+            train=train,
+            val_window_idx=val_window_idx,
+            val_windows_total=self.cfg.windows_per_file_val,
         )
 
         ibi_clean, quality = clean_ibi(
@@ -69,9 +71,9 @@ class ECGGraphDataset(Dataset):
             file_path = random.choice(self.file_list)
             feats, ibi_clean = self._load_features_from_file(file_path, train=True)
         else:
-            file_idx, _ = self.val_indices[idx]
+            file_idx, w = self.val_indices[idx]
             file_path = self.file_list[file_idx]
-            feats, ibi_clean = self._load_features_from_file(file_path, train=False)
+            feats, ibi_clean = self._load_features_from_file(file_path, train=False, val_window_idx=w)
 
         return {
             "beats": torch.tensor(feats, dtype=torch.float32),   # [N, F] kept key name for compatibility

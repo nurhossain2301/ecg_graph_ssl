@@ -12,7 +12,7 @@ class Config:
     min_ibi_ms: int = 300
     max_ibi_ms: int = 2000
     max_len_beats: int = 128
-    ibi_feature_dim: int = 4   # [ibi_norm, dibi_norm, local_var, quality]
+    ibi_feature_dim: int = 10  # see signal_utils.build_ibi_features for full list
 
     # ---- model ----
     graph_dim: int = 128
@@ -36,8 +36,8 @@ class Config:
     run_name: str = "ibi_graph_ssl_v1"
     seed: int = 42
 
-    train_csv: str = "/work/hdd/bebr/Projects/ecg_foundational_model/IBI_train_files.csv"
-    test_csv: str = "/work/hdd/bebr/Projects/ecg_foundational_model/IBI_val_files.csv"
+    train_csv: str = "/work/hdd/bebr/Projects/ecg_foundational_model/ECG_train_files.csv"
+    test_csv: str = "/work/hdd/bebr/Projects/ecg_foundational_model/ECG_val_files.csv"
     output_dir: str = "/work/nvme/bebr/mkhan14/ecg_foundation_model/graph_modelling/experiments"
 
     @property

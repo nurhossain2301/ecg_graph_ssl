@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1650" height="980" viewBox="0 0 1650 980">
+  <defs>
+    <style>
+      .bg { fill: #f7f8fb; }
+      .title { font: 700 32px Arial, sans-serif; fill: #18202f; }
+      .subtitle { font: 16px Arial, sans-serif; fill: #526071; }
+      .section { font: 700 18px Arial, sans-serif; fill: #243044; }
+      .label { font: 700 17px Arial, sans-serif; fill: #172033; }
+      .text { font: 14px Arial, sans-serif; fill: #314056; }
+      .small { font: 12px Arial, sans-serif; fill: #526071; }
+      .note { font: 13px Arial, sans-serif; fill: #4a5a70; }
+      .box { stroke: #243044; stroke-width: 1.6; rx: 8; ry: 8; }
+      .input { fill: #dff3ee; }
+      .pre { fill: #e9f2ff; }
+      .enc { fill: #fff3c9; }
+      .graph { fill: #f5e7ff; }
+      .pool { fill: #ffe4d6; }
+      .head { fill: #e7edff; }
+      .train { fill: #edf0f4; }
+      .arrow { stroke: #243044; stroke-width: 2.2; fill: none; marker-end: url(#arrow); }
+      .thin { stroke: #607084; stroke-width: 1.6; fill: none; marker-end: url(#arrowSmall); }
+      .dash { stroke-dasharray: 8 6; }
+      .loop { stroke: #7451a6; stroke-width: 2; fill: none; marker-end: url(#arrowPurple); }
+    </style>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M 0 0 L 12 6 L 0 12 z" fill="#243044"/>
+    </marker>
+    <marker id="arrowSmall" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#607084"/>
+    </marker>
+    <marker id="arrowPurple" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M 0 0 L 12 6 L 0 12 z" fill="#7451a6"/>
+    </marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#223044" flood-opacity="0.14"/>
+    </filter>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1650" height="980"/>
+
+  <text class="title" x="60" y="58">IBI Graph Supervised Model Architecture</text>
+  <text class="subtitle" x="60" y="86">
+    Implemented by downstream_task/model_supervised.py with defaults from config_supervised.py
+  </text>
+
+  <rect class="box input" filter="url(#shadow)" x="60" y="140" width="220" height="130"/>
+  <text class="label" x="82" y="172">Input window</text>
+  <text class="text" x="82" y="202">ECG text segment</text>
+  <text class="text" x="82" y="224">30 seconds @ 1000 Hz</text>
+  <text class="small" x="82" y="250">CSV metadata + annotations</text>
+
+  <rect class="box pre" filter="url(#shadow)" x="330" y="125" width="260" height="160"/>
+  <text class="label" x="352" y="157">IBI preprocessing</text>
+  <text class="text" x="352" y="187">detect_ibi_adaptive</text>
+  <text class="text" x="352" y="210">random_window_ibi</text>
+  <text class="text" x="352" y="233">clean_ibi: 350-650 ms</text>
+  <text class="text" x="352" y="256">build_ibi_features</text>
+
+  <rect class="box pre" filter="url(#shadow)" x="640" y="125" width="260" height="160"/>
+  <text class="label" x="662" y="157">Batch tensors</text>
+  <text class="text" x="662" y="187">beats: [B, 80, 4]</text>
+  <text class="text" x="662" y="210">rr: [B, 80]</text>
+  <text class="text" x="662" y="233">valid_mask: [B, 80]</text>
+  <text class="small" x="662" y="258">labels: sleep/wake or task classes</text>
+
+  <path class="arrow" d="M 280 205 L 330 205"/>
+  <path class="arrow" d="M 590 205 L 640 205"/>
+
+  <text class="section" x="62" y="343">Node and Temporal Encoding</text>
+
+  <rect class="box enc" filter="url(#shadow)" x="60" y="375" width="300" height="178"/>
+  <text class="label" x="82" y="407">IBIEncoder</text>
+  <text class="text" x="82" y="438">MLP: 4 -> 128 -> 128 -> 128</text>
+  <text class="text" x="82" y="461">LayerNorm + GELU + dropout</text>
+  <text class="text" x="82" y="484">Residual projection: 4 -> 128</text>
+  <text class="small" x="82" y="516">Output node embeddings: [B, N, 128]</text>
+
+  <rect class="box enc" filter="url(#shadow)" x="430" y="375" width="300" height="178"/>
+  <text class="label" x="452" y="407">TemporalEncoder</text>
+  <text class="text" x="452" y="438">Learned positional embedding</text>
+  <text class="text" x="452" y="461">TransformerEncoder x 2</text>
+  <text class="text" x="452" y="484">4 attention heads, FFN = 512</text>
+  <text class="small" x="452" y="516">Uses valid_mask as padding mask</text>
+
+  <rect class="box enc" filter="url(#shadow)" x="800" y="375" width="270" height="178"/>
+  <text class="label" x="822" y="407">Virtual node</text>
+  <text class="text" x="822" y="438">Learned [1, 1, 128] token</text>
+  <text class="text" x="822" y="461">Prepended before graph blocks</text>
+  <text class="text" x="822" y="484">Updated after each GNN layer</text>
+  <text class="small" x="822" y="516">use_virtual_node = True</text>
+
+  <path class="arrow" d="M 900 205 C 970 205 1010 300 970 375"/>
+  <path class="arrow" d="M 360 464 L 430 464"/>
+  <path class="arrow" d="M 730 464 L 800 464"/>
+
+  <text class="section" x="62" y="617">Dynamic Graph Neural Network</text>
+
+  <rect class="box graph" filter="url(#shadow)" x="60" y="650" width="330" height="220"/>
+  <text class="label" x="82" y="682">Build graph at each layer</text>
+  <text class="text" x="82" y="714">Normalize node embeddings</text>
+  <text class="text" x="82" y="737">Semantic kNN: k = 8</text>
+  <text class="text" x="82" y="760">Symmetric adjacency</text>
+  <text class="text" x="82" y="783">Temporal edges: hop 1 and 2</text>
+  <text class="text" x="82" y="806">Self-loops for valid nodes</text>
+  <text class="small" x="82" y="838">A: [B, N+1, N+1] while virtual node exists</text>
+
+  <rect class="box graph" filter="url(#shadow)" x="460" y="650" width="390" height="220"/>
+  <text class="label" x="482" y="682">GraphBlock x 4</text>
+  <text class="text" x="482" y="714">Decomposed edge gate:</text>
+  <text class="small" x="502" y="736">sigmoid(gate_out(A * gate_dst(x) + gate_src(x)))</text>
+  <text class="text" x="482" y="765">Gated message aggregation</text>
+  <text class="text" x="482" y="788">Update MLP on [self_lin(x), agg]</text>
+  <text class="text" x="482" y="811">Residual + dropout + LayerNorm</text>
+  <text class="small" x="482" y="840">Masked invalid nodes are zeroed</text>
+
+  <rect class="box graph" filter="url(#shadow)" x="920" y="650" width="310" height="220"/>
+  <text class="label" x="942" y="682">Virtual node update</text>
+  <text class="text" x="942" y="714">Real-node global mean</text>
+  <text class="text" x="942" y="737">Concat with current VN</text>
+  <text class="text" x="942" y="760">MLP: 256 -> 128 -> 128</text>
+  <text class="text" x="942" y="783">GELU + LayerNorm</text>
+  <text class="small" x="942" y="815">After block, graph is rebuilt</text>
+
+  <path class="arrow" d="M 935 553 C 935 600 220 600 220 650"/>
+  <path class="arrow" d="M 390 760 L 460 760"/>
+  <path class="arrow" d="M 850 760 L 920 760"/>
+  <path class="loop" d="M 1080 650 C 1080 600 675 600 655 650"/>
+
+  <text class="section" x="1295" y="343">Readout and Prediction</text>
+
+  <rect class="box pool" filter="url(#shadow)" x="1290" y="375" width="300" height="178"/>
+  <text class="label" x="1312" y="407">Strip virtual node</text>
+  <text class="text" x="1312" y="438">Keep real beat nodes only</text>
+  <text class="text" x="1312" y="461">vn_emb returned separately</text>
+  <text class="small" x="1312" y="494">node_emb: [B, 80, 128]</text>
+
+  <rect class="box pool" filter="url(#shadow)" x="1290" y="610" width="300" height="190"/>
+  <text class="label" x="1312" y="642">Graph readout</text>
+  <text class="text" x="1312" y="673">Mean pool: 128</text>
+  <text class="text" x="1312" y="696">Max pool: 128</text>
+  <text class="text" x="1312" y="719">4-head attention pool: 128</text>
+  <text class="text" x="1312" y="742">Concatenate -> graph_emb</text>
+  <text class="small" x="1312" y="772">graph_emb: [B, 384]</text>
+
+  <rect class="box head" filter="url(#shadow)" x="1290" y="842" width="300" height="104"/>
+  <text class="label" x="1312" y="874">Classifier head</text>
+  <text class="text" x="1312" y="904">384 -> 256 -> 128 -> classes</text>
+  <text class="small" x="1312" y="927">LayerNorm, GELU, dropout; default classes = 2</text>
+
+  <path class="arrow" d="M 1230 760 C 1275 760 1275 464 1290 464"/>
+  <path class="arrow" d="M 1440 553 L 1440 610"/>
+  <path class="arrow" d="M 1440 800 L 1440 842"/>
+
+  <rect class="box train" x="970" y="130" width="310" height="145"/>
+  <text class="label" x="992" y="162">Training setup</text>
+  <text class="text" x="992" y="192">AdamW, lr = 1e-3, wd = 1e-4</text>
+  <text class="text" x="992" y="215">CosineAnnealingLR, 20 epochs</text>
+  <text class="text" x="992" y="238">CrossEntropy + label smoothing 0.05</text>
+  <text class="small" x="992" y="260">Optional class weights; early stop on macro F1</text>
+
+  <path class="thin dash" d="M 1440 946 C 1440 965 1125 965 1125 275"/>
+
+  <text class="note" x="60" y="930">
+    Forward returns logits, graph_emb, node_emb, multi-head attention weights, last adjacency matrix, and virtual-node embedding.
+  </text>
+  <text class="note" x="60" y="953">
+    Default dimensions: max_len_beats=80, ibi_feature_dim=4, d_model=128, transformer_layers=2, gnn_layers=4, pool_heads=4.
+  </text>
+</svg>

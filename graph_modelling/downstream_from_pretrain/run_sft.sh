@@ -35,7 +35,7 @@ export WANDB_API_KEY="83325179ad3537a8c7a1b3a0c8daa4ea71866fae"
 # =============================================
 PROJECT_DIR=$PWD
 EXPERIMENT_DIR="$PROJECT_DIR/brp_sft_experiments_sleep"
-ENCODER_CKPT="/work/nvme/bebr/mkhan14/ecg_foundation_model/graph_modelling/best_model.pt"
+ENCODER_CKPT="/work/nvme/bebr/mkhan14/ecg_foundation_model/graph_modelling/pretraining/best_model.pt"
 TRAIN_CSV="../../BRP_train.csv"
 TEST_CSV="../../BRP_test.csv"
 # CKPT_DIR="/work/nvme/bebr/mkhan14/ecg_foundation_model/brp_sft_experiments/sft_out"

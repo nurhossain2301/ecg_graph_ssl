@@ -89,8 +89,6 @@ class IBIGraphDataset(Dataset):
                 continue
 
             ecg_df = pd.read_csv(ecg_txt, names=["time", "ecg"])
-            total_time = ecg_df["time"].values[-1]
-
             segments = self._parse_annotation(ann_path, tone_offset)
 
             for seg_start, seg_end, label in segments:

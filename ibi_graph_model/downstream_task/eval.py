@@ -1,54 +1,40 @@
 import json
 import os
 import random
-from tqdm import tqdm
 from collections import Counter
 
+import matplotlib.pyplot as plt
 import numpy as np
+import seaborn as sns
 import torch
 from torch.utils.data import DataLoader
 
 from config_supervised import Config
 from dataset_sleep import IBIGraphCollator, IBIGraphDataset
 from model_supervised import IBIGraphClassifier
-from train_supervised import EarlyStopper, SupervisedLoss, run_one_epoch, save_checkpoint
-
-
+from train_supervised import SupervisedLoss, run_one_epoch
 
 
 def compute_class_weights(dataset, num_classes):
-    labels = [dataset[i]["label"].item() for i in range(len(dataset))]
+    labels = [dataset.label2idx[label] for _, _, label in dataset.samples]
     counts = Counter(labels)
-
     print("Class counts:", counts)
-
-    weights = []
     total = sum(counts.values())
-
-    for i in range(num_classes):
-        c = counts.get(i, 1)  # avoid division by zero
-        weights.append(total / (num_classes * c))
-
+    weights = [total / (num_classes * counts.get(i, 1)) for i in range(num_classes)]
     weights = torch.tensor(weights, dtype=torch.float32)
     print("Class weights:", weights)
-
     return weights
 
-# -----------------------------
-# Confusion Matrix Plot
-# -----------------------------
-def plot_confusion_matrix(cm, save_path):
-    # labels = ["Active", "Crying", "Quiet", "Sleep"]
-    labels = ["caregiver", "infant"]
 
+def plot_confusion_matrix(cm, label_names, save_path):
     plt.figure(figsize=(6, 5))
     sns.heatmap(
         cm,
         annot=True,
         fmt="d",
         cmap="Blues",
-        xticklabels=labels,
-        yticklabels=labels,
+        xticklabels=label_names,
+        yticklabels=label_names,
     )
     plt.xlabel("Predicted")
     plt.ylabel("True")
@@ -57,23 +43,22 @@ def plot_confusion_matrix(cm, save_path):
     plt.savefig(save_path, dpi=300)
     plt.close()
 
+
 def main():
     cfg = Config()
     os.makedirs(cfg.output_dir_eval, exist_ok=True)
 
-     # -----------------------------
-    # Load checkpoint
-    # -----------------------------
-    ckpt = torch.load(cfg.ckpt, map_location=device)
-
+    device = torch.device(
+        "cuda" if torch.cuda.is_available() and cfg.device.startswith("cuda") else "cpu"
+    )
 
     # -----------------------------
     # Dataset
     # -----------------------------
-    test_dataset  = IBIGraphDataset(cfg.val_csv, cfg=cfg)
+    test_dataset = IBIGraphDataset(cfg.val_csv, cfg=cfg)
 
     test_loader = DataLoader(
-        val_ds,
+        test_dataset,
         batch_size=cfg.batch_size,
         shuffle=False,
         num_workers=cfg.num_workers,
@@ -81,66 +66,80 @@ def main():
         collate_fn=IBIGraphCollator(),
     )
 
-    device = torch.device("cuda" if torch.cuda.is_available() and cfg.device.startswith("cuda") else "cpu")
+    # -----------------------------
+    # Model
+    # -----------------------------
     model = IBIGraphClassifier(cfg).to(device)
+    ckpt = torch.load(cfg.ckpt, map_location=device)
     model.load_state_dict(ckpt["model"])
     model.eval()
 
+    # -----------------------------
+    # Loss (class weights from test set since no train set here)
+    # -----------------------------
     class_weights = None
     if cfg.use_class_weights:
-        class_weights = compute_class_weights(train_ds, cfg.num_classes).to(device)
-        print("Class weights:", class_weights)
+        class_weights = compute_class_weights(test_dataset, cfg.num_classes).to(device)
 
     criterion = SupervisedLoss(
         class_weights=class_weights,
-        label_smoothing=cfg.label_smoothing,
+        label_smoothing=0.0,  # no smoothing at eval time
     )
     optimizer = torch.optim.AdamW(model.parameters(), lr=cfg.lr, weight_decay=cfg.weight_decay)
-    
 
-    test_metrics = run_one_epoch(model, val_loader, optimizer, criterion, device, train=False, num_classes=cfg.num_classes)
-    
+    # -----------------------------
+    # Evaluate
+    # -----------------------------
+    test_metrics = run_one_epoch(
+        model, test_loader, optimizer, criterion, device,
+        train=False, num_classes=cfg.num_classes,
+    )
+
     print("\n===== TEST RESULTS =====")
-    print(f"Loss  : {loss:.4f}")
-    print(f"Acc   : {metrics['acc']:.4f}")
-    print(f"F1    : {metrics['macro_f1']:.4f}")
-    print(f"Kappa : {metrics['kappa']:.4f}")
+    print(f"Loss     : {test_metrics['loss']:.4f}")
+    print(f"Acc      : {test_metrics['acc']:.4f}")
+    print(f"Bal Acc  : {test_metrics['bal_acc']:.4f}")
+    print(f"F1 macro : {test_metrics['f1_macro']:.4f}")
+    print(f"Kappa    : {test_metrics['kappa']:.4f}")
+    if "auroc" in test_metrics:
+        print(f"AUROC    : {test_metrics['auroc']:.4f}")
 
     # -----------------------------
     # Save metrics
     # -----------------------------
-    metrics_path = os.path.join(cfg.output_dir_eval, "metrics.json")
-    with open(metrics_path, "w") as f:
-        json.dump({
-            "loss": float(test_metrics['loss']),
-            "accuracy": float(test_metrics["acc"]),
-            "macro_f1": float(test_metrics["macro_f1"]),
-            "kappa": float(test_metrics["kappa"]),
-        }, f, indent=4)
+    save_dict = {
+        "loss":      float(test_metrics["loss"]),
+        "accuracy":  float(test_metrics["acc"]),
+        "bal_acc":   float(test_metrics["bal_acc"]),
+        "f1_macro":  float(test_metrics["f1_macro"]),
+        "kappa":     float(test_metrics["kappa"]),
+    }
+    if "auroc" in test_metrics:
+        save_dict["auroc"] = float(test_metrics["auroc"])
+
+    with open(os.path.join(cfg.output_dir_eval, "metrics.json"), "w") as f:
+        json.dump(save_dict, f, indent=4)
 
     # -----------------------------
     # Confusion Matrix
     # -----------------------------
-    if "confusion_matrix" in test_metrics:
-        cm = np.array(test_metrics["confusion_matrix"])
+    if "cm" in test_metrics:
+        cm = np.array(test_metrics["cm"])
+        label_names = [test_dataset.idx2label[i] for i in range(cfg.num_classes)]
 
-        # Save raw matrix
         np.save(os.path.join(cfg.output_dir_eval, "confusion_matrix.npy"), cm)
 
-        # Save readable txt
         with open(os.path.join(cfg.output_dir_eval, "confusion_matrix.txt"), "w") as f:
-            f.write("Confusion Matrix (Sleep=0, Wake=1)\n")
+            f.write(f"Labels: {label_names}\n")
             f.write(str(cm))
 
-        # Plot
         plot_confusion_matrix(
             cm,
-            os.path.join(cfg.output_dir_eval, "confusion_matrix.png")
+            label_names,
+            os.path.join(cfg.output_dir_eval, "confusion_matrix.png"),
         )
 
     print(f"\nSaved results to: {cfg.output_dir_eval}")
-
-        
 
 
 if __name__ == "__main__":

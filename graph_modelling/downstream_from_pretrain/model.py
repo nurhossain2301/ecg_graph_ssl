@@ -40,8 +40,9 @@ class TemporalEncoder(nn.Module):
         )
         self.encoder = nn.TransformerEncoder(layer, num_layers)
 
-    def forward(self, x):
-        return self.encoder(x)
+    def forward(self, x, valid_mask=None):
+        pad_mask = ~valid_mask if valid_mask is not None else None
+        return self.encoder(x, src_key_padding_mask=pad_mask)
 
 
 class ResidualGATLayer(nn.Module):
@@ -123,7 +124,7 @@ class ECGEncoder(nn.Module):
         x = self.beat(beats, rr)
         x = self.norm_enc(x)
         x = x * valid_mask.unsqueeze(-1)
-        x = self.temporal(x)
+        x = self.temporal(x, valid_mask)
         x = self.norm_temp(x)
         x = x * valid_mask.unsqueeze(-1)
 
@@ -145,7 +146,7 @@ class ECGBYOLModel(nn.Module):
 
         self.online_projector = nn.Sequential(
             nn.Linear(cfg.d_model, cfg.d_model),
-            nn.BatchNorm1d(cfg.d_model),
+            nn.LayerNorm(cfg.d_model),
             nn.ReLU(),
             nn.Linear(cfg.d_model, 128),
         )
@@ -156,7 +157,7 @@ class ECGBYOLModel(nn.Module):
 
         self.predictor = nn.Sequential(
             nn.Linear(128, 128),
-            nn.BatchNorm1d(128),
+            nn.LayerNorm(128),
             nn.ReLU(),
             nn.Linear(128, 128),
         )
@@ -188,7 +189,7 @@ class ECGBYOLModel(nn.Module):
 
         # Step 2: target from temporal only (consistent space)
         with torch.no_grad():
-            target = enc.temporal(e)
+            target = enc.temporal(e, valid_mask)
             target = enc.norm_temp(target)
             target = target * valid_mask.unsqueeze(-1)
             target = target.detach()
@@ -197,12 +198,8 @@ class ECGBYOLModel(nn.Module):
         mask_tok = self.mask_token.expand(e.size(0), e.size(1), -1)
         e_masked = torch.where(node_mask.unsqueeze(-1), mask_tok, e)
         e_masked = e_masked * valid_mask.unsqueeze(-1)
-        # e_masked = e.clone()
-        # mask_tok = self.mask_token.expand(e.size(0), e.size(1), -1)
-        # e_masked = torch.where(node_mask.unsqueeze(-1), mask_tok, e_masked)
-        # e_masked = e_masked * valid_mask.unsqueeze(-1)
         # Step 4: reconstruct through same path as target
-        x = enc.temporal(e_masked)
+        x = enc.temporal(e_masked, valid_mask)
         x = enc.norm_temp(x)
         x = x * valid_mask.unsqueeze(-1)
 

@@ -1,0 +1,312 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{enumitem}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    urlcolor=blue!70!black,
+}
+
+\lstset{
+    basicstyle=\ttfamily\small,
+    backgroundcolor=\color{gray!10},
+    frame=single,
+    breaklines=true,
+    columns=fullflexible,
+}
+
+\title{\textbf{IBI Graph Pretraining: Design and Analysis}\\
+\large Inter-Beat Interval Representation, Self-Supervised Learning,\\and Comparison with wav2vec2/HuBERT}
+\author{ECG Foundation Model Project}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+% ─────────────────────────────────────────────────────────────────
+\section{How Can an IBI Signal Be Represented as a Graph?}
+% ─────────────────────────────────────────────────────────────────
+
+An Inter-Beat Interval (IBI) sequence is a time series of durations between consecutive R-peaks in an ECG signal.
+Rather than treating it as a flat 1-D sequence, we model it as a graph where each heartbeat is a node and
+relationships between beats are encoded as edges.
+
+\subsection{Nodes --- Each Beat Is a Node}
+
+Given a window of $N$ heartbeats, we construct $N$ nodes. Each node $v_i$ carries a feature vector
+$\mathbf{x}_i \in \mathbb{R}^{10}$ of hand-crafted, physiologically meaningful attributes.
+All features are \emph{MAD-normalized}: $(x - \text{median}) / \text{MAD}$, making them robust to
+outliers and invariant across subjects.
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{clll}
+\toprule
+\textbf{Index} & \textbf{Feature} & \textbf{Description} & \textbf{Clinical Relevance} \\
+\midrule
+0 & \texttt{ibi\_norm}       & MAD-normalized IBI duration          & Raw HRV magnitude \\
+1 & \texttt{dibi\_norm}      & Beat-to-beat change $\Delta$IBI      & Short-term variability (SDNN proxy) \\
+2 & \texttt{local\_var\_norm}& Local $\pm$2-beat variance           & Local rhythm stability \\
+3 & \texttt{quality}         & Signal quality flag $\in [0,1]$      & Noise-robustness \\
+4 & \texttt{hr\_norm}        & Instantaneous heart rate             & Physiological state \\
+5 & \texttt{abs\_dibi\_norm} & $|\Delta\text{IBI}|$                 & RMSSD proxy \\
+6 & \texttt{pnn50\_flag}     & 1 if $|\Delta\text{IBI}|>50$\,ms    & Classic pNN50 HRV metric \\
+7 & \texttt{rel\_ibi}        & IBI / median IBI                     & Beat relative to subject baseline \\
+8 & \texttt{trend\_norm}     & Local slope of IBI sequence          & HR acceleration / deceleration \\
+9 & \texttt{position}        & Normalized beat index in window      & Temporal context \\
+\bottomrule
+\end{tabular}
+\caption{Node feature vector $\mathbf{x}_i \in \mathbb{R}^{10}$ for beat $i$.}
+\end{table}
+
+\subsection{Edges --- Three Types, Built Dynamically}
+
+After the feature MLP projects each node to a 128-dimensional embedding, the adjacency matrix
+$A \in \{0,1\}^{B \times N \times N}$ is constructed per batch using three edge types:
+
+\begin{enumerate}[leftmargin=*]
+
+\item \textbf{K-NN Similarity Edges ($K=6$).}
+Cosine similarity is computed pairwise over learned embeddings.
+Each node is connected to its top-$K$ most similar beats, regardless of temporal distance:
+\[
+    e_{ij} = 1 \quad \text{if } j \in \mathrm{top\text{-}K}\bigl(\mathrm{cos}(\mathbf{h}_i,\, \mathbf{h}_j)\bigr)
+\]
+This captures \emph{physiological similarity} --- two beats with similar HRV context are linked
+even if they are far apart in time.
+
+\item \textbf{Temporal Sequential Edges.}
+Adjacent beats are always connected bidirectionally ($i \leftrightarrow i{+}1$),
+preserving the causal structure of the rhythm.
+
+\item \textbf{Self-Loops.}
+Every valid node is connected to itself, allowing it to retain its own features through GNN aggregation.
+
+\end{enumerate}
+
+\textbf{Key design property --- dynamic graph construction.}
+The graph is \emph{not} precomputed; it is built fresh every forward pass from the current encoder's embeddings.
+As training progresses, the encoder improves, and the graph topology improves with it:
+beats belonging to similar physiological states cluster together, and those connections reinforce learning.
+
+\subsection{GNN Message Passing}
+
+Each GNN layer performs degree-normalized neighbor aggregation with a residual connection:
+\[
+    \mathbf{h}_i^{(\ell+1)} = \mathrm{LayerNorm}\!\left(
+        \mathrm{GELU}\!\left(
+            W_s\,\mathbf{h}_i^{(\ell)}
+            + W_n \frac{1}{d_i}\sum_{j} A_{ij}\,\mathbf{h}_j^{(\ell)}
+        \right)
+        + \mathbf{h}_i^{(\ell)}
+    \right)
+\]
+where $d_i = \sum_j A_{ij}$ is the degree of node $i$.
+Three such layers are stacked, followed by attention pooling to obtain a global window-level representation.
+
+% ─────────────────────────────────────────────────────────────────
+\section{How to Convert IBI-Graph to Self-Supervised Learning?}
+% ─────────────────────────────────────────────────────────────────
+
+The pretraining objective is a \textbf{hybrid} of two complementary SSL signals:
+a \emph{local} masked node reconstruction loss and a \emph{global} contrastive (BYOL) loss.
+
+\subsection{Goal 1: Masked Node Reconstruction (Local, Structural)}
+
+\paragraph{Motivation.}
+A model that can predict a missing beat's representation from its graph neighbors must learn to understand
+rhythmic context --- what surrounding beats imply about the missing one.
+
+\paragraph{Procedure.}
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Teacher (no gradient)}: Clean beat features $\rightarrow$ MLP encoder $\rightarrow$ Temporal Transformer $\rightarrow$ normalize $\rightarrow$ target embeddings $\hat{\mathbf{h}}$.
+    \item \textbf{Student}: Same clean features $\rightarrow$ MLP encoder $\rightarrow$ replace 30\% of valid nodes with a learnable mask token $\mathbf{m}$ $\rightarrow$ Temporal Transformer $\rightarrow$ build graph $\rightarrow$ GNN $\rightarrow$ linear decoder $\rightarrow$ reconstructed embeddings $\tilde{\mathbf{h}}$.
+    \item \textbf{Loss} computed only on masked positions $\mathcal{M}$:
+\end{enumerate}
+\[
+    \mathcal{L}_{\text{mask}} = \frac{1}{|\mathcal{M}|}\sum_{i \in \mathcal{M}}
+    \left[
+        \|\tilde{\mathbf{h}}_i - \hat{\mathbf{h}}_i\|^2
+        + 0.5\,\bigl(1 - \cos(\tilde{\mathbf{h}}_i,\, \hat{\mathbf{h}}_i)\bigr)
+    \right]
+\]
+
+\paragraph{What the model must learn.}
+A masked beat during atrial fibrillation will have very different graph neighbors than one during sinus rhythm.
+The graph structure itself becomes the signal: the model must use topology to infer content.
+
+\subsection{Goal 2: BYOL Contrastive Loss (Global, Semantic)}
+
+\paragraph{Motivation.}
+Two segments from the same recording should produce the same high-level representation,
+invariant to physiological noise and measurement artifacts.
+
+\paragraph{Augmentations applied independently to two views.}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Jitter}: Add Gaussian noise $\mathcal{N}(0, (5\,\text{ms})^2)$ to each IBI --- simulates sensor noise.
+    \item \textbf{Dropout}: Randomly remove 10\% of beats (keeping $\geq 4$) --- simulates missed R-peak detections.
+    \item \textbf{Scale}: Multiply all IBIs by $U(0.92, 1.08)$ --- simulates HR drift or subject movement.
+\end{itemize}
+
+\paragraph{Online/Target architecture (BYOL).}
+\[
+    \mathcal{L}_{\text{BYOL}} = 2 - 2\,\cos\!\bigl(q(\mathbf{z}_1),\,\mathbf{z}_2'\bigr)
+    + 2 - 2\,\cos\!\bigl(q(\mathbf{z}_2),\,\mathbf{z}_1'\bigr)
+\]
+where $\mathbf{z}$, $q(\mathbf{z})$ are the projector and predictor outputs of the \emph{online} network,
+and $\mathbf{z}'$ is the projector output of the \emph{target} network (EMA, no gradient).
+The EMA momentum is cosine-annealed from $0.996 \to 0.9999$ over training.
+
+\subsection{Combined Objective}
+
+\[
+    \boxed{\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{mask}} + 0.5\,\mathcal{L}_{\text{BYOL}}}
+\]
+
+The local objective enforces fine-grained beat-level understanding;
+the global objective enforces semantic invariance across windows.
+Together they prevent representation collapse (BYOL) while preserving structural detail (masked reconstruction).
+
+\subsection{Full Architecture at a Glance}
+
+\begin{lstlisting}
+Input: Beat features [B, N, 10]  +  valid_mask [B, N]  +  node_mask [B, N]
+
+  IBI Encoder (MLP 10 -> 64 -> 128)
+        |
+  Temporal Transformer (2 layers, 4 heads)
+        |
+  [MASK 30% of valid nodes with learnable token m]
+        |
+  Build dynamic graph (K-NN + temporal + self-loops)
+        |
+  GNN (3 layers, normalized aggregation + residual)
+        |
+  Linear Decoder -> reconstruct masked embeddings
+  Attention Pool  -> global representation [B, 128]
+        |
+  Projector (MLP) -> [B, 128]
+  Predictor (MLP) -> BYOL online branch only
+\end{lstlisting}
+
+% ─────────────────────────────────────────────────────────────────
+\section{How Does IBI-Graph Differ From wav2vec2 / HuBERT?}
+% ─────────────────────────────────────────────────────────────────
+
+\subsection{What wav2vec2 and HuBERT Do}
+
+Both methods were designed for \emph{raw audio waveforms} at 16\,kHz sampling rates:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{wav2vec2}: Convolutional feature extractor $\to$ quantized codebook $\to$ contrastive prediction of masked frames against negative samples.
+    \item \textbf{HuBERT}: Offline $k$-means clustering on MFCC / latent representations $\to$ masked prediction of discrete cluster IDs as pseudo-labels.
+\end{itemize}
+Both treat the signal as a \textbf{dense, fixed-rate 1-D sequence}, and their SSL objectives are
+defined in terms of predicting quantized tokens or contrastive frame embeddings.
+
+\subsection{Comparison Table}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{>{\bfseries}p{3.2cm} p{5.5cm} p{5.5cm}}
+\toprule
+Dimension & wav2vec2 / HuBERT & IBI-Graph (ours) \\
+\midrule
+Input modality
+    & Dense 1-D waveform ($\sim$16{,}000 samples/sec)
+    & Sparse event sequence (0.5--3 beats/sec) \\
+Signal structure
+    & Short-range temporal correlations
+    & Multi-scale: beat-to-beat (ms) + rhythm patterns (minutes) \\
+Noise model
+    & Additive acoustic noise
+    & Ectopic beats, missed detections, variable density \\
+Domain knowledge
+    & None --- raw signal is target
+    & 10 HRV features encode decades of cardiology \\
+Cross-subject invariance
+    & Waveform morphology varies by lead, body habitus, device
+    & MAD-normalized IBI features are subject-invariant \\
+Reconstruction target
+    & Discrete codebook tokens or quantized frames
+    & Continuous teacher embedding (no codebook needed) \\
+Relationships captured
+    & Strictly sequential (1-D attention)
+    & Sequential \textbf{+} similarity-based (graph edges) \\
+Variable-rate input
+    & Requires fixed-rate resampling
+    & Naturally handles irregular beat timing \\
+Missing data
+    & No explicit mechanism
+    & Quality flag node feature + masking \\
+\bottomrule
+\end{tabular}
+\caption{Comparison of IBI-Graph pretraining vs.\ waveform-based SSL methods.}
+\end{table}
+
+\subsection{Where IBI-Graph Is a Better Solution}
+
+\paragraph{1. Non-local rhythm patterns via graph topology.}
+In wav2vec2 and HuBERT, long-range dependencies must be learned entirely through self-attention from scratch.
+In IBI-Graph, K-NN edges \emph{explicitly} connect beats with similar HRV signatures regardless of their
+temporal distance. A premature ventricular contraction at beat 3 and another at beat 40 are directly linked
+in the graph, making pattern recognition structurally easier.
+
+\paragraph{2. Asynchronous and irregular sequences.}
+ECG IBI sequences are fundamentally asynchronous --- beats do not occur at fixed intervals.
+wav2vec2 assumes a fixed-rate frame structure. The graph representation handles variable beat timing,
+missing beats, and sequence length variation without resampling artifacts.
+
+\paragraph{3. Physiologically grounded features vs.\ learned quantization.}
+HuBERT's codebook is derived from $k$-means on raw waveform embeddings --- the resulting clusters
+may not align with clinically meaningful categories. The 10-feature node vectors explicitly encode
+medically validated HRV metrics (pNN50, RMSSD proxy, local trend), giving the GNN
+semantically meaningful structure from the very first training step.
+
+\paragraph{4. Graph topology as an emergent representation.}
+As the encoder trains, the K-NN graph that gets built improves.
+Beats during sympathetic activation cluster with other sympathetic beats;
+parasympathetic recovery with recovery beats.
+The \emph{topology itself becomes a learned representation of physiological state} ---
+wav2vec2 / HuBERT have no equivalent mechanism.
+
+\paragraph{5. Explicit robustness to signal quality.}
+The \texttt{quality} node feature and masked-node mechanism explicitly handle bad beats.
+wav2vec2 applied naively to ECG waveforms would be corrupted by motion artifacts and baseline wander
+with no selective ignore mechanism.
+
+\subsection{Where IBI-Graph Has Limitations}
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Lossy abstraction}: IBI discards all waveform morphology (P-wave shape, ST-segment, QRS width) --- useful for rhythm disorders but not for myocardial conditions (e.g., ischemia, hypertrophy).
+    \item \textbf{Beat detector dependency}: The entire pipeline fails or degrades if the upstream R-peak detector is inaccurate. wav2vec2 on raw ECG has no such upstream dependency.
+    \item \textbf{Shorter effective context}: 30-second windows of $\leq75$ beats vs.\ wav2vec2's ability to process longer audio contexts with hierarchical attention.
+\end{itemize}
+
+\subsection{Core Claim}
+
+\begin{center}
+\fbox{\parbox{0.85\textwidth}{
+\emph{Cardiac rhythm is better modeled as a \textbf{graph of physiologically-featurized events}
+than as a waveform sequence, because beats have natural similarity relationships that transcend
+temporal ordering, and those relationships carry the information most relevant to autonomic function
+and cardiovascular disease state.}
+}}
+\end{center}
+
+This is a defensible and novel position --- especially for tasks like arrhythmia detection,
+stress prediction, sleep staging, and autonomic assessment where HRV is the established clinical gold standard.
+
+\end{document}

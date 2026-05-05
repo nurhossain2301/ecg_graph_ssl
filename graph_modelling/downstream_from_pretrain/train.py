@@ -23,7 +23,7 @@ def run_one_epoch(model, loader, optimizer, device, train=True, grad_clip=1.0, a
         beats      = batch['beats'].to(device)        # (B, N, L)
         rr         = batch['rr'].to(device)           # (B, N, 2)
         valid_mask = batch['valid_mask'].to(device)   # (B, N) bool
-        labels     = batch['labels'].to(device)       # (B,)
+        labels     = batch['label'].to(device)       # (B,)
         with torch.set_grad_enabled(train):
             logits = model(beats, rr, valid_mask)  # (B, num_classes)
             loss = criterion(logits, labels)
@@ -46,4 +46,4 @@ def run_one_epoch(model, loader, optimizer, device, train=True, grad_clip=1.0, a
 
     metrics = compute_metrics(all_true, all_pred, num_classes=args.num_classes)
     avg_loss = total_loss / max(total_n, 1)
-    return avg_loss, metrics
+    return avg_loss, metrics, all_true, all_pred

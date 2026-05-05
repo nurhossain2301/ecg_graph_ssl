@@ -8,9 +8,9 @@ class Config:
     # -----------------------------
     train_csv: str = "/work/nvme/bebr/mkhan14/ecg_foundation_model/BRP_train.csv"
     val_csv: str = "/work/nvme/bebr/mkhan14/ecg_foundation_model/BRP_test.csv"
-    output_dir: str = "ibi_graph_supervised_sleep"
-    output_dir_eval: str = "ibi_graph_supervised_sleep_eval"
-    ckpt: str = "/work/nvme/bebr/mkhan14/ecg_foundation_model/ibi_graph_model/downstream_task/ibi_graph_supervised_status"
+    output_dir: str = "ibi_graph_supervised_caregiver"
+    output_dir_eval: str = "ibi_graph_supervised_caregiver_eval"
+    ckpt: str = "/work/nvme/bebr/mkhan14/ecg_foundation_model/ibi_graph_model/downstream_task/ibi_graph_supervised_status/best_model.pt"
 
 
     task_type: str = "auto"    # auto | binary | multiclass
@@ -22,7 +22,7 @@ class Config:
     min_ibi_ms: int = 350
     max_ibi_ms: int = 650
     max_len_beats: int = 80
-    ibi_feature_dim: int = 4
+    ibi_feature_dim: int = 10  # must match signal_utils.build_ibi_features
 
     # -----------------------------
     # model
@@ -56,7 +56,7 @@ class Config:
     # runtime
     # -----------------------------
     seed: int = 42
-    run_name: str = "ibi_graph_supervised_v1_sleep"
+    run_name: str = "ibi_graph_supervised_v1_caregiver"
     device: str = "cuda"
 
     @property

@@ -102,20 +102,20 @@ class BRPGraphDataset(Dataset):
             # Infant movement (non-spatial)
             if interaction.startswith("i-alone"):
                 if state in ["crying", "active alert"] and location == "floor":
-                    label_group = "infant-alone"
+                    label_group = "infant"
 
             # Infant movement in space
             elif interaction.startswith("i-move"):
                 if location=="floor":
-                    label_group = "infant-move"
+                    label_group = "infant"
 
             # Caregiver touch (non-spatial)
             elif interaction.startswith("c-active") or interaction.startswith("c-passive"):
-                label_group = "caregiver-touch"
+                label_group = "caregiver"
 
             # Caregiver moving infant
             elif interaction.startswith("c-pick"):
-                label_group = "caregiver-pickup"
+                label_group = "caregiver"
 
             # Skip others (like O-TOUCH)
             if label_group is not None:

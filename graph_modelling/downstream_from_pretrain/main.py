@@ -7,7 +7,14 @@ import random
 import wandb
 from collections import Counter
 from torch.utils.data import Dataset, DataLoader
-from BRP_dataset_sleep import BRPGraphDataset
+from BRP_dataset_sleep         import BRPGraphDataset as BRPGraphDatasetSleep
+from BRP_dataset_caregiver     import BRPGraphDataset as BRPGraphDatasetCaregiver
+from BRP_dataset_caregiver_v2  import BRPGraphDatasetCaregiverV2
+from BRP_dataset_caregiver_v3  import BRPGraphDatasetCaregiverV3
+from BRP_dataset_caregiver_v4  import BRPGraphDatasetCaregiverV4
+from BRP_dataset_caregiver_v5  import BRPGraphDatasetCaregiverV5
+from BRP_dataset_caregiver_v6  import BRPGraphDatasetCaregiverV6
+from BRP_dataset_status        import BRPGraphDataset as BRPGraphDatasetStatus
 from train import run_one_epoch
 from config import Config
 
@@ -39,6 +46,15 @@ def parse_args():
     p.add_argument("--num_classes", type=int, default=4)
 
     p.add_argument("--seed", type=int, default=42)
+    p.add_argument("--dataset_type", type=str, default="sleep",
+                   choices=["sleep", "caregiver", "caregiver_v2", "caregiver_v3", "caregiver_v4", "caregiver_v5", "caregiver_v6", "status"],
+                   help="Which BRP dataset class to use")
+    p.add_argument("--head_type", type=str, default="mlp",
+                   choices=["mlp", "cosine", "residual_mlp", "cls_transformer"],
+                   help="Classification head: mlp | cosine | residual_mlp | cls_transformer")
+    p.add_argument("--max_beats", type=int, default=None,
+                   help="Override cfg.max_beats_per_segment (default: 32). "
+                        "Increase proportionally with window_sec, e.g. 80 for 30s windows.")
     return p.parse_args()
     
 def build_classifier_from_byol(
@@ -49,6 +65,7 @@ def build_classifier_from_byol(
     dropout: float = 0.3,
     freeze_encoder: bool = False,
     device: str = "cpu",
+    head_type: str = "mlp",
 ) -> ECGClassifier:
     """
     1. Load BYOL checkpoint
@@ -65,6 +82,7 @@ def build_classifier_from_byol(
         hidden_dim=hidden_dim,
         dropout=dropout,
         freeze_encoder=freeze_encoder,
+        head_type=head_type,
     )
 
     # ── step 3: transfer weights ──────────────────────────
@@ -81,7 +99,7 @@ def build_classifier_from_byol(
     print(
         f"[build_classifier] Transferred online_encoder + pool weights.\n"
         f"  num_classes={num_classes}, hidden_dim={hidden_dim}, "
-        f"freeze={freeze_encoder}"
+        f"freeze={freeze_encoder}, head={head_type}"
     )
     return model
 
@@ -101,18 +119,38 @@ def main():
     )
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
+    if args.max_beats is not None:
+        cfg.max_beats_per_segment = args.max_beats
+
     # ── Phase 1: linear probe (frozen encoder) ────────────
     model = build_classifier_from_byol(
         ckpt_path    = args.encoder_ckpt,
         cfg          = cfg,
         num_classes  = args.num_classes,
-        hidden_dim   = 256, #make dynamic
+        hidden_dim   = 256,
         dropout      = 0.3,
-        freeze_encoder = args.freeze_encoder,   # <── only head trains
+        freeze_encoder = args.freeze_encoder,
         device       = device,
+        head_type    = args.head_type,
     )
     os.makedirs(args.output_dir, exist_ok=True)
 
+    if args.dataset_type == "caregiver":
+        BRPGraphDataset = BRPGraphDatasetCaregiver
+    elif args.dataset_type == "caregiver_v2":
+        BRPGraphDataset = BRPGraphDatasetCaregiverV2
+    elif args.dataset_type == "caregiver_v3":
+        BRPGraphDataset = BRPGraphDatasetCaregiverV3
+    elif args.dataset_type == "caregiver_v4":
+        BRPGraphDataset = BRPGraphDatasetCaregiverV4
+    elif args.dataset_type == "caregiver_v5":
+        BRPGraphDataset = BRPGraphDatasetCaregiverV5
+    elif args.dataset_type == "caregiver_v6":
+        BRPGraphDataset = BRPGraphDatasetCaregiverV6
+    elif args.dataset_type == "status":
+        BRPGraphDataset = BRPGraphDatasetStatus
+    else:
+        BRPGraphDataset = BRPGraphDatasetSleep
     train_dataset = BRPGraphDataset(args.train_csv, window_sec=args.window_sec, sample_rate=1000, cfg=cfg)
     label2idx = train_dataset.label2idx
     test_dataset  = BRPGraphDataset(args.test_csv, window_sec=args.window_sec, sample_rate=1000, cfg=cfg, label2idx=label2idx)
@@ -151,8 +189,8 @@ def main():
     history = []
 
     for epoch in range(1, args.epochs + 1):
-        tr_loss, tr_metrics = run_one_epoch(model, train_loader, optimizer, device, train=True, grad_clip=args.grad_clip, args=args, class_weights=class_weights)
-        va_loss, va_metrics = run_one_epoch(model, val_loader, optimizer, device, train=False, grad_clip=args.grad_clip, args=args, class_weights=class_weights)
+        tr_loss, tr_metrics, _, _ = run_one_epoch(model, train_loader, optimizer, device, train=True, grad_clip=args.grad_clip, args=args, class_weights=class_weights)
+        va_loss, va_metrics, _, _ = run_one_epoch(model, val_loader, optimizer, device, train=False, grad_clip=args.grad_clip, args=args, class_weights=class_weights)
 
         # -----------------------------
         # Log to W&B
@@ -191,15 +229,17 @@ def main():
     model.load_state_dict(ckpt["model"])
     model.eval()
 
-    te_loss, te_metrics = run_one_epoch(model, test_loader, optimizer, device, train=False, args=args)
+    te_loss, te_metrics, te_true, te_pred = run_one_epoch(model, test_loader, optimizer, device, train=False, args=args)
 
     print("\n===== TEST RESULTS =====")
-    print(f"test loss: {te_loss:.4f}")
-    print(f"test acc : {te_metrics['acc']:.4f}")
-    print(f"test f1  : {te_metrics['macro_f1']:.4f}")
+    print(f"test loss : {te_loss:.4f}")
+    print(f"test acc  : {te_metrics['acc']:.4f}")
+    print(f"test f1   : {te_metrics['macro_f1']:.4f}")
     print(f"test kappa: {te_metrics['kappa']:.4f}")
+    if "confusion_matrix" in te_metrics:
+        print(f"confusion matrix:\n{np.array(te_metrics['confusion_matrix'])}")
 
-    # Log test metrics
+    # Log scalar test metrics to W&B
     wandb.log({
         "test/loss": te_loss,
         "test/accuracy": te_metrics["acc"],
@@ -207,19 +247,44 @@ def main():
         "test/kappa": te_metrics["kappa"],
     })
 
-    # Log confusion matrix
-    if "confusion_matrix" in te_metrics:
-        wandb.log({
-            "test/confusion_matrix": wandb.plot.confusion_matrix(
-                probs=None,
-                y_true=np.array(te_metrics["confusion_matrix"]).argmax(axis=1),
-                preds=np.array(te_metrics["confusion_matrix"]).argmax(axis=0),
-            )
-        })
+    # Log confusion matrix to W&B
+    class_names = [k for k, _ in sorted(label2idx.items(), key=lambda x: x[1])]
+    wandb.log({
+        "test/confusion_matrix": wandb.plot.confusion_matrix(
+            probs=None,
+            y_true=te_true,
+            preds=te_pred,
+            class_names=class_names,
+        )
+    })
+
+    # Save all test metrics to JSON
+    import math
+    def _json_safe(v):
+        if isinstance(v, float) and (math.isnan(v) or math.isinf(v)):
+            return None
+        return v
+
+    test_results = {
+        "loss": te_loss,
+        "acc": _json_safe(te_metrics["acc"]),
+        "macro_f1": _json_safe(te_metrics["macro_f1"]),
+        "kappa": _json_safe(te_metrics["kappa"]),
+        "confusion_matrix": te_metrics.get("confusion_matrix"),
+        "class_names": class_names,
+        "label2idx": label2idx,
+        "num_classes": args.num_classes,
+        "run_name": args.run_name,
+    }
+    metrics_path = os.path.join(args.output_dir, "test_metrics.json")
+    import json as _json
+    with open(metrics_path, "w") as f:
+        _json.dump(test_results, f, indent=2)
+    print(f"\nTest metrics saved to: {metrics_path}")
 
     wandb.finish()
 
-    print(f"\nDone. Outputs in: {args.output_dir}")
+    print(f"Done. Outputs in: {args.output_dir}")
 
 
 if __name__ == "__main__":

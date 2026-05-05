@@ -41,7 +41,9 @@ def build_graph(x, valid_mask, k=6):
             A[b, i, j] = 1.0
             A[b, j, i] = 1.0
 
-        A[b, valid_idx, valid_idx] += torch.eye(len(valid_idx), device=x.device)
+        # self-loops for valid nodes
+        for vi in valid_idx:
+            A[b, vi, vi] = 1.0
 
     return A
 
@@ -132,7 +134,10 @@ class ECGModel(nn.Module):
 
         with torch.no_grad():
             target = self.temporal(e.clone(), valid_mask)
-        target = target.detach()
+
+        # build graph from clean input embeddings (stable; avoids circular dependency
+        # with representations that shift during training)
+        A = build_graph(e, valid_mask, k=self.k)
 
         e_masked = e.clone()
         mask_token = self.mask_token.expand(e.size(0), e.size(1), -1)
@@ -145,8 +150,6 @@ class ECGModel(nn.Module):
         e_masked = e_masked * valid_mask.unsqueeze(-1)
 
         x = self.temporal(e_masked, valid_mask)
-
-        A = build_graph(x, valid_mask, k=self.k)
 
         for layer in self.gnn:
             x = layer(x, A)

@@ -4,7 +4,7 @@ from typing import Dict
 import numpy as np
 import torch
 import torch.nn.functional as F
-from sklearn.metrics import accuracy_score, balanced_accuracy_score, confusion_matrix, f1_score, roc_auc_score
+from sklearn.metrics import accuracy_score, balanced_accuracy_score, cohen_kappa_score, confusion_matrix, f1_score, roc_auc_score
 from tqdm import tqdm
 
 
@@ -56,6 +56,7 @@ def compute_metrics(logits, labels, num_classes: int) -> Dict[str, float]:
         "bal_acc": float(balanced_accuracy_score(y, pred)),
         "f1_macro": float(f1_score(y, pred, average="macro", zero_division=0)),
         "f1_weighted": float(f1_score(y, pred, average="weighted", zero_division=0)),
+        "kappa": float(cohen_kappa_score(y, pred)),
     }
 
     if num_classes == 2:
